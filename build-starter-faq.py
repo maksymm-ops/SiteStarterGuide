@@ -35,6 +35,8 @@ def group_for(title):
         number, suffix = int(numbered[1]), numbered[2]
         if number == 4 and suffix == "а":
             return "start"
+        if 13 <= number <= 18:
+            return "context"
         return {1: "start", 2: "context", 3: "context", 4: "context",
                 5: "system", 6: "pages", 7: "review", 8: "review",
                 9: "review", 10: "review", 11: "reference",
@@ -47,7 +49,9 @@ def group_for(title):
         return "pages"
     if re.match(r"Промпт (7|8|9|10)\.", title) or title == "Когда запускается независимая проверка":
         return "review"
-    if title in {"Какие навыки входят в комплект", "Ежедневный короткий порядок", "Что важно помнить", "Глобальные сценарии и независимая проверка", "Что включено", "Источники"}:
+    if title == "GitHub: рабочие сценарии":
+        return "context"
+    if title in {"Словарь для дизайнера", "Какие навыки входят в комплект", "Ежедневный короткий порядок", "Что важно помнить", "Глобальные сценарии и независимая проверка", "Что включено", "Источники"}:
         return "reference"
     return "start"
 
@@ -76,10 +80,6 @@ for chunk in chunks:
         continue
     title = chunk["title"]
     display = title
-    if chunk["level"] == 1:
-        display = "Что это за гайд и как им пользоваться?"
-    if title == "Когда запускается независимая проверка":
-        display = "Независимое ревью: когда и как запускать?"
     ident = "topic-" + hashlib.sha256(title.encode()).hexdigest()[:10]
     tokens = md.parse(body)
     fences = [t for t in tokens if t.type == "fence"]
