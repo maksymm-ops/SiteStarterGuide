@@ -97,11 +97,13 @@ h1{font-size:clamp(32px,3.4vw,46px);letter-spacing:-.035em;line-height:1.2;font-
 /* Measured from notion.com/help at desktop and mobile widths. */
 :root{--ink:rgba(0,0,0,.9);--muted:#646464;--line:rgba(0,0,0,.08);--soft:#f6f5f4;--side:280px}
 body{font-family:NotionInter,Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;line-height:24px;color:var(--ink)}
-.masthead{height:64px;position:sticky;top:0;z-index:20;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 24px;gap:24px}
-.masthead .brand{padding:0;font-size:20px;font-weight:700;letter-spacing:-.25px}
+.masthead{height:64px;position:sticky;top:0;z-index:20;background:#fff;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 24px;gap:24px}
+.masthead .brand{justify-self:start;padding:0;font-size:20px;font-weight:700;letter-spacing:-.25px}
 .top-links{display:flex;align-items:center;gap:24px;font-size:14px;line-height:20px}
 .top-links a{text-decoration:none}.top-links a:hover{text-decoration:underline}
-.top-links .primary-link{background:#0075de;color:white;padding:8px 14px;border-radius:8px;font-size:16px;line-height:24px;font-weight:500}
+.top-links a{display:inline-flex;align-items:center;min-height:40px}
+.masthead .primary-link{justify-self:end;background:#0075de;color:#fff;padding:8px 14px;border-radius:8px;font-size:14px;line-height:24px;font-weight:500;text-decoration:none;white-space:nowrap}
+.masthead .primary-link:hover{background:#0066c2}
 .sidebar{top:64px;padding:20px 16px;border-color:var(--line)}
 .sidebar>.brand{display:none}.nav-heading{font-size:12px;line-height:16px;margin:0 8px 8px;color:#787774}
 .nav-group{margin:0;padding:6px 0;border-bottom:1px solid #e9e9e7}.group-link{font-size:16px;font-weight:400;line-height:20px;padding:6px 8px;min-height:32px;border-radius:4px}
@@ -110,12 +112,12 @@ body{font-family:NotionInter,Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",H
 .toc{padding:0;overflow-y:auto}.source-link{padding:24px 8px 0;font-size:14px;line-height:20px}
 main{margin-left:280px;padding:48px 24px;max-width:none}
 .page-header,#materials,.category-section,.empty{width:100%;max-width:804px;margin-left:auto;margin-right:auto}
-.page-header{margin-bottom:40px;text-align:center}
-h1{font-size:54px;line-height:56px;letter-spacing:-1.875px;font-weight:700;margin:0 2px 24px;text-wrap:initial}
-.search-box{height:56px;border:1px solid var(--line);border-radius:200px;padding:0 16px 0 24px;gap:16px;margin:0 2px}
+.page-header{margin-bottom:40px;text-align:left}
+h1{font-size:54px;line-height:56px;letter-spacing:-1.875px;font-weight:700;margin:0 0 24px;text-wrap:initial}
+.search-box{height:56px;border:1px solid var(--line);border-radius:200px;padding:0 16px 0 24px;gap:16px;margin:0}
 #search{font-size:16px;padding:0;line-height:24px}#search::placeholder{color:#646464}
 .search-icon{width:16px;height:16px;border-color:#787774}.search-icon:after{background:#787774}
-.search-options{justify-content:center;gap:8px;margin-top:24px;min-height:36px;flex-wrap:wrap}
+.search-options{justify-content:flex-start;gap:8px;margin-top:24px;min-height:36px;flex-wrap:wrap}
 .quick-link,.prompt-filter{background:#f9f9f8;border-radius:4px;padding:4px 16px;font-size:14px;line-height:20px;color:var(--ink);text-decoration:none;min-height:28px}
 .quick-link:hover,.prompt-filter:hover{background:#efefed}.prompt-filter input{width:14px;height:14px}
 #result-count{font-size:14px;line-height:20px;flex-basis:100%}
@@ -134,10 +136,14 @@ h1{font-size:54px;line-height:56px;letter-spacing:-1.875px;font-weight:700;margi
 .topic-body{font-size:16px;line-height:26px;max-width:100%}.topic-body p{margin:16px 0}
 .copy-block code,.manual-copy textarea{font-family:NotionInter,Inter,"Segoe UI",Arial,sans-serif}
 .mobile-nav{position:static;display:none;border:0;border-radius:4px;background:white;font-size:0;padding:8px;min-width:36px;min-height:36px}.mobile-nav:before{content:"";display:block;width:20px;height:14px;border-top:1.5px solid currentColor;border-bottom:1.5px solid currentColor;background:linear-gradient(currentColor,currentColor) center/20px 1.5px no-repeat}
+.mobile-nav[aria-expanded="true"]:before{height:20px;border:0;background:linear-gradient(45deg,transparent calc(50% - .75px),currentColor calc(50% - .75px),currentColor calc(50% + .75px),transparent calc(50% + .75px)),linear-gradient(-45deg,transparent calc(50% - .75px),currentColor calc(50% - .75px),currentColor calc(50% + .75px),transparent calc(50% + .75px))}
 @media(min-width:1600px){main{padding:48px 24px;max-width:none}}
 @media(max-width:1100px){:root{--side:280px}.sidebar{padding:20px 16px}main{padding:48px 24px}}
-@media(max-width:900px){:root{--side:0px}html{scroll-padding-top:80px}.masthead{padding:0 16px}.masthead .brand{font-size:18px}.top-links{gap:12px}.top-links>.source-top{display:none}.mobile-nav{display:block}.sidebar{display:none;position:fixed;top:64px;bottom:auto;width:100%;max-height:calc(100dvh - 64px);padding:20px 16px;overflow-y:auto;border-bottom:1px solid var(--line)}.sidebar.expanded{display:flex}.sidebar .toc{display:block;max-height:none;padding:0}.nav-heading,.source-link{display:block}main{margin-left:0;padding:24px}.page-header{margin-bottom:40px;text-align:center}h1{font-size:42px;line-height:48px;letter-spacing:-1.375px;margin:0 0 24px;max-width:none}.search-box{margin:0;height:56px;padding:0 16px 0 24px;border-radius:200px;gap:16px}#search{font-size:16px;padding:0}.search-options{margin-top:24px;font-size:14px}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.topic-group h2,.category-section h2{font-size:32px;line-height:40px;margin-bottom:24px}.topic-title{font-size:16px}.topic-body{font-size:16px}.topic,.topic-group{scroll-margin-top:16px}.copy-block code{font-size:14px}#toast{left:50%}}
-@media(max-width:600px){.category-grid{grid-template-columns:1fr;margin:0 16px;gap:28px}.category-card{min-height:186px}.category-section h2{margin-left:16px}.top-links .primary-link{font-size:13px;padding:8px 12px}.quick-link,.prompt-filter{padding:4px 12px}.category-section{margin-bottom:48px}}
+@media(max-width:1100px){:root{--side:0px}html{scroll-padding-top:80px}.masthead{padding:0 16px}.masthead .brand{font-size:18px}.top-links{gap:12px}.top-links>.source-top{display:none}.mobile-nav{display:block}.sidebar{display:none;position:fixed;top:64px;bottom:auto;width:100%;max-height:calc(100dvh - 64px);padding:20px 16px;overflow-y:auto;border-bottom:1px solid var(--line)}.sidebar.expanded{display:flex}.sidebar .toc{display:block;max-height:none;padding:0}.nav-heading,.source-link{display:block}main{margin-left:0;padding:24px}.page-header{margin-bottom:40px;text-align:left}h1{font-size:42px;line-height:48px;letter-spacing:-1.375px;margin:0 0 24px;max-width:none}.search-box{margin:0;height:56px;padding:0 16px 0 24px;border-radius:200px;gap:16px}#search{font-size:16px;padding:0}.search-options{margin-top:24px;font-size:14px}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.topic-group h2,.category-section h2{font-size:32px;line-height:40px;margin-bottom:24px}.topic-title{font-size:16px}.topic-body{font-size:16px}.topic,.topic-group{scroll-margin-top:16px}.copy-block code{font-size:14px}#toast{left:50%}}
+@media(max-width:600px){.category-grid{grid-template-columns:1fr;margin:0;gap:28px}.category-card{min-height:186px}.category-section h2{margin-left:0}.quick-link,.prompt-filter{padding:4px 12px}.category-section{margin-bottom:48px}}
+.mobile-resources{display:none}
+@media(max-width:1100px){:root{--content-inset:max(24px,calc((100vw - 804px)/2))}html{scroll-padding-top:80px}.masthead{height:64px;grid-template-columns:1fr auto;gap:12px;padding:0 var(--content-inset)}.masthead .brand{grid-column:1;grid-row:1}.masthead>.mobile-nav{position:static;grid-column:2;grid-row:1;display:grid;place-items:center;width:44px;height:44px}.masthead>.top-links,.masthead>.primary-link{display:none}.sidebar{top:64px;max-height:calc(100dvh - 64px);padding:20px calc(var(--content-inset) - 8px)}.mobile-resources{display:flex;flex-direction:column;gap:12px;padding:20px 8px 0;margin-top:20px;border-top:1px solid var(--line);flex-shrink:0}.mobile-resources .top-links{display:flex;flex-direction:column;align-items:flex-start;gap:0;font-size:14px}.mobile-resources .primary-link{align-self:flex-start;background:#0075de;color:#fff;padding:8px 14px;border-radius:8px;font-size:14px;line-height:24px;text-decoration:none}}
+@media(min-width:1101px){.masthead .top-links{position:absolute;left:max(304px,calc(50% - 262px))}.masthead .primary-link{grid-column:3}}
 @media print{.masthead,.category-section{display:none!important}main{margin:0}}
 @media(max-width:600px){.topic-title:has(.prompt-number){grid-template-columns:1fr;gap:4px}.prompt-number{font-size:12px;line-height:18px}}
 
@@ -145,13 +151,14 @@ h1{font-size:54px;line-height:56px;letter-spacing:-1.875px;font-weight:700;margi
 </head>
 <body id="top">
 <a class="skip" href="#main">Перейти к материалам</a>
-<header class="masthead"><a class="brand" href="#top">Site Starter Guide</a><nav class="top-links" aria-label="Быстрый доступ"><a class="source-top" href="codex-nextjs-site-starter-guide-ru.md">Исходный гайд</a><a class="primary-link" href="#group-start">Начать работу</a><button type="button" class="mobile-nav" aria-label="Открыть оглавление" aria-controls="toc" aria-expanded="false" disabled>Оглавление</button></nav></header>
-<aside class="sidebar" aria-label="Навигация по гайду">
+<header class="masthead"><a class="brand" href="#top">Site Starter Guide</a><nav class="top-links" aria-label="Быстрый доступ"><a href="#topic-27fdcb8140">Как пользоваться</a><a href="https://learn.chatgpt.com/learn/codex" target="_blank" rel="noopener noreferrer">Помощь по Codex ↗</a><a href="#topic-d0578b52b3">Источники</a></nav><a class="primary-link" href="https://github.com/maisjandesign/codex-nextjs-site-starter/tree/main" target="_blank" rel="noopener noreferrer" title="Репозиторий Site Starter на GitHub">Открыть Site Starter ↗</a><button type="button" class="mobile-nav" aria-label="Открыть оглавление" aria-controls="guide-navigation" aria-expanded="false" disabled>Оглавление</button></header>
+<aside id="guide-navigation" class="sidebar" aria-label="Навигация по гайду">
 <a class="brand" href="#main">Site Starter Guide</a>
 
 <div class="nav-heading">Темы</div>
 <nav class="toc" id="toc" aria-label="Оглавление">@@NAV@@</nav>
 <a class="source-link" href="codex-nextjs-site-starter-guide-ru.md">Исходный гайд .md</a>
+<div class="mobile-resources"></div>
 </aside>
 <main id="main" tabindex="-1">
 <header class="page-header">
@@ -167,20 +174,21 @@ h1{font-size:54px;line-height:56px;letter-spacing:-1.875px;font-weight:700;margi
 <div class="empty" id="empty" hidden><strong>Ничего не нашлось</strong>Попробуй другое слово или отключи фильтр «Только промпты».<br><button type="button" id="reset">Показать всё</button></div>
 </main>
 <div id="toast" role="status" aria-live="polite" hidden></div>
-<script id="search-data" type="application/json">@@DATA@@</script>
 <script>
 (()=>{'use strict';
 const search=document.querySelector('#search'),cards=[...document.querySelectorAll('.topic')],groups=[...document.querySelectorAll('.topic-group')],navLinks=[...document.querySelectorAll('.topic-link')],clear=document.querySelector('.clear'),count=document.querySelector('#result-count'),empty=document.querySelector('#empty'),sidebar=document.querySelector('.sidebar'),mobile=document.querySelector('.mobile-nav'),promptOnly=document.querySelector('#prompt-only');
-const data=JSON.parse(document.querySelector('#search-data').textContent);
+const masthead=document.querySelector('.masthead'),topLinks=masthead.querySelector('.top-links'),starterLink=masthead.querySelector('.primary-link'),resources=document.querySelector('.mobile-resources'),compactHeader=matchMedia('(max-width:1100px)');
+function placeHeaderLinks(){if(compactHeader.matches){resources.append(topLinks,starterLink)}else{masthead.insertBefore(topLinks,mobile);masthead.insertBefore(starterLink,mobile);sidebar.classList.remove('expanded');mobile.setAttribute('aria-expanded','false');mobile.setAttribute('aria-label','Открыть оглавление')}}
+placeHeaderLinks();compactHeader.addEventListener('change',placeHeaderLinks);
 const normalize=s=>s.toLowerCase().replaceAll('ё','е').replace(/[–—-]/g,' ');
-const searchable=new Map(Object.entries(data).map(([id,text])=>[id,normalize(text)]));let toastTimer;
+const searchable=new Map(cards.map(card=>{const body=card.querySelector('.topic-body').cloneNode(true);body.querySelectorAll('.copy-bar').forEach(bar=>bar.remove());const links=[...body.querySelectorAll('a[href]')].map(a=>a.getAttribute('href')).join(' ');return [card.id,normalize(card.querySelector('.topic-title').textContent+' '+body.textContent+' '+links)]}));let toastTimer;
 search.disabled=false;promptOnly.disabled=false;document.querySelectorAll('button').forEach(b=>b.disabled=false);
 document.querySelectorAll('table').forEach(table=>{const wrap=document.createElement('div');wrap.className='table-scroll';wrap.tabIndex=0;wrap.setAttribute('role','region');wrap.setAttribute('aria-label','Таблица, при необходимости прокручивается горизонтально');table.before(wrap);wrap.append(table)});
 function apply(){const terms=normalize(search.value.trim()).split(/\s+/).filter(Boolean);let n=0;const scores=new Map();for(const card of cards){const title=normalize(card.querySelector('.topic-title').textContent),hit=(!promptOnly.checked||card.dataset.prompt==='true')&&terms.every(t=>searchable.get(card.id).includes(t)),titleHit=terms.length&&terms.every(t=>title.includes(t));card.hidden=!hit;if(hit)n++;scores.set(card.id,hit?(titleHit?100:0)+terms.filter(t=>title.includes(t)).length*10+(card.dataset.prompt==='true'?2:0):-1);if(terms.length)card.open=false;}const groupScores=new Map();for(const group of groups){const own=cards.filter(c=>c.dataset.group===group.id.replace('group-','')),visible=own.filter(c=>!c.hidden);group.hidden=!visible.length;groupScores.set(group.id,Math.max(-1,...visible.map(c=>scores.get(c.id))));const ordered=terms.length?[...own].sort((a,b)=>scores.get(b.id)-scores.get(a.id)):own;ordered.forEach(c=>group.append(c));}const orderedGroups=terms.length?[...groups].sort((a,b)=>groupScores.get(b.id)-groupScores.get(a.id)):groups;orderedGroups.forEach(g=>document.querySelector('#materials').append(g));empty.hidden=n!==0;clear.hidden=!search.value;count.hidden=!terms.length&&!promptOnly.checked;count.textContent=`Найдено: ${n}`;document.querySelector("#categories").hidden=Boolean(terms.length||promptOnly.checked);}
 function reset(){search.value='';promptOnly.checked=false;apply();}
 search.addEventListener('input',apply);clear.addEventListener('click',()=>{search.value='';apply();search.focus()});promptOnly.addEventListener('change',apply);document.querySelector('#reset').addEventListener('click',()=>{reset();search.focus()});
-function closeNav(){sidebar.classList.remove('expanded');mobile.setAttribute('aria-expanded','false')}
-mobile.addEventListener('click',()=>{const expanded=sidebar.classList.toggle('expanded');mobile.setAttribute('aria-expanded',String(expanded))});
+function closeNav(){const restoreFocus=sidebar.contains(document.activeElement);sidebar.classList.remove('expanded');mobile.setAttribute('aria-expanded','false');mobile.setAttribute('aria-label','Открыть оглавление');if(restoreFocus&&compactHeader.matches)mobile.focus()}
+mobile.addEventListener('click',()=>{const expanded=sidebar.classList.toggle('expanded');mobile.setAttribute('aria-expanded',String(expanded));mobile.setAttribute('aria-label',expanded?'Закрыть оглавление':'Открыть оглавление')});
 function mark(id){navLinks.forEach(a=>{const on=a.hash==='#'+id;a.classList.toggle('active',on);if(on)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}
 function reveal(hash,scroll=true){let id;try{id=decodeURIComponent(hash.replace(/^#/,''))}catch{return}const target=document.getElementById(id);if(!target)return;if(target.hidden||target.closest('.topic-group')?.hidden)reset();if(target.matches('.topic')){target.open=true;mark(target.id)}closeNav();if(scroll)requestAnimationFrame(()=>{target.scrollIntoView({block:'start'});const focusTarget=target.id==='main'?target:target.matches('.topic')?target.querySelector('summary'):null;focusTarget?.focus({preventScroll:true})});}
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',event=>{event.preventDefault();const hash=a.getAttribute('href');try{history.pushState(null,'',hash)}catch{location.hash=hash}reveal(hash)}));window.addEventListener('hashchange',()=>reveal(location.hash));window.addEventListener('popstate',()=>reveal(location.hash));if(location.hash)reveal(location.hash);

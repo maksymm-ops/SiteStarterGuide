@@ -2,7 +2,6 @@
 from pathlib import Path
 import hashlib
 import html
-import json
 import re
 from markdown_it import MarkdownIt
 
@@ -98,7 +97,7 @@ for chunk in chunks:
         if original not in rendered:
             raise ValueError(f"Unmatched fenced block in {title}")
         rendered = rendered.replace(original, replacement, 1)
-    cards.append({"id": ident, "title": display, "original": title, "group": group_for(title), "prompt": has_prompt, "rendered": rendered, "search": title + " " + body})
+    cards.append({"id": ident, "title": display, "original": title, "group": group_for(title), "prompt": has_prompt, "rendered": rendered})
 
 nav = []
 sections = []
@@ -113,10 +112,9 @@ for group_id, label, description in GROUPS:
         articles.append(f'<details class="topic" id="{c["id"]}" data-group="{group_id}" data-prompt="{str(c["prompt"]).lower()}"><summary><h3 class="topic-title">{title_markup(c["title"])}</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body">{c["rendered"]}</div></details>')
     sections.append(f'<section class="topic-group" id="group-{group_id}"><h2>{label}</h2>' + "".join(articles) + '</section>')
 
-data = json.dumps({c["id"]: c["search"] for c in cards}, ensure_ascii=False).replace("<", "\\u003c")
 template = (ROOT / "starter-faq-template.html").read_text(encoding="utf-8")
 
-for key, value in {"NAV": "".join(nav), "SECTIONS": "".join(sections), "TILES": "".join(tiles), "CARDS": str(len(cards)), "PROMPTS": str(prompt_count), "DATA": data}.items():
+for key, value in {"NAV": "".join(nav), "SECTIONS": "".join(sections), "TILES": "".join(tiles), "CARDS": str(len(cards)), "PROMPTS": str(prompt_count)}.items():
     template = template.replace("@@" + key + "@@", value)
 if re.search(r"@@[A-Z]+@@", template):
     raise ValueError("Unfilled template token")
