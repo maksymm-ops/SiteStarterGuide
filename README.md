@@ -1,4 +1,4 @@
-# Гайд Макса по Site Starter
+# Site Starter Guide
 
 Русская памятка по codex-nextjs-site-starter: сценарии работы и готовые промпты.
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Гайд по сайтам — FAQ Макса</title>
+<title>Site Starter Guide</title>
 <meta name="description" content="Сценарии и промпты для работы над сайтом: материалы, Figma, дизайн-система, проверка и публикация.">
 <style>
 :root{--ink:#202020;--muted:#636363;--line:#e9e9e7;--soft:#f7f7f5;--side:272px}
@@ -145,9 +145,9 @@ h1{font-size:54px;line-height:56px;letter-spacing:-1.875px;font-weight:700;margi
 </head>
 <body id="top">
 <a class="skip" href="#main">Перейти к материалам</a>
-<header class="masthead"><a class="brand" href="#top">Гайд Макса</a><nav class="top-links" aria-label="Быстрый доступ"><a class="source-top" href="codex-nextjs-site-starter-guide-ru.md">Исходный гайд</a><a class="primary-link" href="#group-start">Начать работу</a><button type="button" class="mobile-nav" aria-label="Открыть оглавление" aria-controls="toc" aria-expanded="false" disabled>Оглавление</button></nav></header>
+<header class="masthead"><a class="brand" href="#top">Site Starter Guide</a><nav class="top-links" aria-label="Быстрый доступ"><a class="source-top" href="codex-nextjs-site-starter-guide-ru.md">Исходный гайд</a><a class="primary-link" href="#group-start">Начать работу</a><button type="button" class="mobile-nav" aria-label="Открыть оглавление" aria-controls="toc" aria-expanded="false" disabled>Оглавление</button></nav></header>
 <aside class="sidebar" aria-label="Навигация по гайду">
-<a class="brand" href="#main">Гайд Макса</a>
+<a class="brand" href="#main">Site Starter Guide</a>
 
 <div class="nav-heading">Темы</div>
 <nav class="toc" id="toc" aria-label="Оглавление">@@NAV@@</nav>
@@ -176,7 +176,7 @@ const normalize=s=>s.toLowerCase().replaceAll('ё','е').replace(/[–—-]/g,' 
 const searchable=new Map(Object.entries(data).map(([id,text])=>[id,normalize(text)]));let toastTimer;
 search.disabled=false;promptOnly.disabled=false;document.querySelectorAll('button').forEach(b=>b.disabled=false);
 document.querySelectorAll('table').forEach(table=>{const wrap=document.createElement('div');wrap.className='table-scroll';wrap.tabIndex=0;wrap.setAttribute('role','region');wrap.setAttribute('aria-label','Таблица, при необходимости прокручивается горизонтально');table.before(wrap);wrap.append(table)});
-function apply(){const terms=normalize(search.value.trim()).split(/\s+/).filter(Boolean);let n=0;const scores=new Map();for(const card of cards){const title=normalize(card.querySelector('.topic-title').textContent),hit=(!promptOnly.checked||card.dataset.prompt==='true')&&terms.every(t=>searchable.get(card.id).includes(t)),titleHit=terms.length&&terms.every(t=>title.includes(t));card.hidden=!hit;if(hit)n++;scores.set(card.id,hit?(titleHit?100:0)+terms.filter(t=>title.includes(t)).length*10+(card.dataset.prompt==='true'?2:0):-1);if(terms.length&&hit)card.open=Boolean(titleHit);}const groupScores=new Map();for(const group of groups){const own=cards.filter(c=>c.dataset.group===group.id.replace('group-','')),visible=own.filter(c=>!c.hidden);group.hidden=!visible.length;groupScores.set(group.id,Math.max(-1,...visible.map(c=>scores.get(c.id))));const ordered=terms.length?[...own].sort((a,b)=>scores.get(b.id)-scores.get(a.id)):own;ordered.forEach(c=>group.append(c));}const orderedGroups=terms.length?[...groups].sort((a,b)=>groupScores.get(b.id)-groupScores.get(a.id)):groups;orderedGroups.forEach(g=>document.querySelector('#materials').append(g));empty.hidden=n!==0;clear.hidden=!search.value;count.hidden=!terms.length&&!promptOnly.checked;count.textContent=`Найдено: ${n}`;document.querySelector("#categories").hidden=Boolean(terms.length||promptOnly.checked);}
+function apply(){const terms=normalize(search.value.trim()).split(/\s+/).filter(Boolean);let n=0;const scores=new Map();for(const card of cards){const title=normalize(card.querySelector('.topic-title').textContent),hit=(!promptOnly.checked||card.dataset.prompt==='true')&&terms.every(t=>searchable.get(card.id).includes(t)),titleHit=terms.length&&terms.every(t=>title.includes(t));card.hidden=!hit;if(hit)n++;scores.set(card.id,hit?(titleHit?100:0)+terms.filter(t=>title.includes(t)).length*10+(card.dataset.prompt==='true'?2:0):-1);if(terms.length)card.open=false;}const groupScores=new Map();for(const group of groups){const own=cards.filter(c=>c.dataset.group===group.id.replace('group-','')),visible=own.filter(c=>!c.hidden);group.hidden=!visible.length;groupScores.set(group.id,Math.max(-1,...visible.map(c=>scores.get(c.id))));const ordered=terms.length?[...own].sort((a,b)=>scores.get(b.id)-scores.get(a.id)):own;ordered.forEach(c=>group.append(c));}const orderedGroups=terms.length?[...groups].sort((a,b)=>groupScores.get(b.id)-groupScores.get(a.id)):groups;orderedGroups.forEach(g=>document.querySelector('#materials').append(g));empty.hidden=n!==0;clear.hidden=!search.value;count.hidden=!terms.length&&!promptOnly.checked;count.textContent=`Найдено: ${n}`;document.querySelector("#categories").hidden=Boolean(terms.length||promptOnly.checked);}
 function reset(){search.value='';promptOnly.checked=false;apply();}
 search.addEventListener('input',apply);clear.addEventListener('click',()=>{search.value='';apply();search.focus()});promptOnly.addEventListener('change',apply);document.querySelector('#reset').addEventListener('click',()=>{reset();search.focus()});
 function closeNav(){sidebar.classList.remove('expanded');mobile.setAttribute('aria-expanded','false')}
