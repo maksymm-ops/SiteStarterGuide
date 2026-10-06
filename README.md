@@ -1,6 +1,6 @@
 # Site Starter Guide
 
-Русская памятка по codex-nextjs-site-starter: сценарии работы и готовые промпты.
+Русская памятка по стартеру сайтов для Claude Code и Codex (шаблон site-starter-max-edition-claude на основе codex-nextjs-site-starter): сценарии работы и готовые промпты.
 
 **Открыть гайд:** https://maksymm-ops.github.io/SiteStarterGuide/
 
