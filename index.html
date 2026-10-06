@@ -434,8 +434,8 @@ SOFTWARE.
 </tr>
 <tr>
 <td>Figma</td>
-<td>figma-console + Figma Desktop с плагином Desktop Bridge</td>
-<td>То же, если figma-console подключён в Codex</td>
+<td>figma-console + Figma Desktop с плагином Desktop Bridge; запасные — figma-bridge, затем официальный Figma MCP</td>
+<td>То же, если они подключены в Codex</td>
 </tr>
 <tr>
 <td>Проверка в браузере</td>
@@ -470,11 +470,27 @@ SOFTWARE.
 <code>gsap-scrolltrigger</code>, <code>gsap-plugins</code>, <code>gsap-utils</code>, <code>variant</code>, <code>break</code>,
 <code>explain-interface</code>, <code>interface-review</code>.</li>
 </ol>
+<p>Навыки и общие правила одинаковые на всех компьютерах. Их источник —
+приватный репозиторий <a href="https://github.com/maksymm-ops/max-agent-skills">max-agent-skills</a>:
+копия твоей настройки Claude. Codex ставит из него то же самое по
+инструкции <code>CODEX-SETUP.md</code>. Полный комплект (шаблон, навыки, гайд) для
+переноса лежит в папке <code>F:\.Projects\Site Starter</code>: <code>Claude/</code> и <code>Codex/</code>.</p>
 <p>Проверку можно поручить агенту:</p>
 <div class="copy-block prompt"><div class="copy-bar"><span>Готовый промпт</span><button type="button" class="copy-button" disabled aria-label="Копировать промпт: Подготовить компьютер один раз">Копировать промпт</button></div><pre><code class="language-text">Проверь, готов ли этот компьютер к работе со стартером сайтов: Node.js,
 npm, Git, вход в gh, подключения figma-console и chrome_devtools и общие
 навыки из README шаблона. Ничего не устанавливай без моего согласия.
 Дай список: что есть, чего не хватает и как это поставить.
+</code></pre></div>
+<p>Настроить Codex так же, как Claude (один раз на компьютере):</p>
+<div class="copy-block prompt"><div class="copy-bar"><span>Готовый промпт</span><button type="button" class="copy-button" disabled aria-label="Копировать промпт: Подготовить компьютер один раз">Копировать промпт</button></div><pre><code class="language-text">Склонируй мой приватный репозиторий https://github.com/maksymm-ops/max-agent-skills
+(через gh) и выполни по шагам инструкцию из файла CODEX-SETUP.md.
+Перед каждым изменением делай резервные копии, ничего не удаляй, секреты
+в чат не выводи. Отвечай мне по-русски, в конце дай короткий отчёт.
+</code></pre></div>
+<p>Когда навыки или правила поменялись (Claude обновляет репозиторий сам):</p>
+<div class="copy-block prompt"><div class="copy-bar"><span>Готовый промпт</span><button type="button" class="copy-button" disabled aria-label="Копировать промпт: Подготовить компьютер один раз">Копировать промпт</button></div><pre><code class="language-text">Обнови навыки и общие правила из max-agent-skills по CODEX-SETUP.md:
+забери свежую версию, покажи, что изменилось, и установи изменения.
+Сделай резервные копии. Отвечай по-русски, коротко.
 </code></pre></div>
 </div></details><details class="topic" id="topic-fb0e02a7a1" data-group="start" data-prompt="false"><summary><h3 class="topic-title">Когда использовать этот шаблон</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body"><ul>
 <li>Ты делаешь новый сайт по макету Figma или скриншоту.</li>
@@ -1523,6 +1539,30 @@ site-audit/. Начни с ошибок, мешающих пользоватьс
 <td>Отдельный каталог настоящих элементов сайта и их состояний.</td>
 </tr>
 <tr>
+<td>Навык</td>
+<td>Файл с инструкцией для агента, как делать определённую работу. Агент читает его только на нужном этапе.</td>
+</tr>
+<tr>
+<td>MCP</td>
+<td>Подключение, через которое агент управляет другой программой: Figma, браузером, генератором картинок.</td>
+</tr>
+<tr>
+<td>figma-console</td>
+<td>Основное подключение к Figma. Работает через плагин Desktop Bridge, запущенный в Figma Desktop.</td>
+</tr>
+<tr>
+<td>chrome_devtools</td>
+<td>Браузер Chrome, которым управляет агент: открывает сайт, делает снимки, меряет размеры.</td>
+</tr>
+<tr>
+<td>AGENTS.md / CLAUDE.md</td>
+<td>Правила проекта для агента. Codex читает <code>AGENTS.md</code>, Claude — <code>CLAUDE.md</code>, который подключает тот же <code>AGENTS.md</code>.</td>
+</tr>
+<tr>
+<td><code>?static</code></td>
+<td>Добавка к адресу страницы: анимации сразу показывают конечное состояние, удобно для снимков.</td>
+</tr>
+<tr>
 <td>GSAP</td>
 <td>Инструмент анимаций в этом паке. Не нужно устанавливать его заново в каждой задаче.</td>
 </tr>
@@ -1691,7 +1731,8 @@ Storybook.</li>
 что ты открываешь локальный просмотр; сам запуск не публикует сайт
 в интернете.</p>
 </div></details><details class="topic" id="topic-9a24d07e9d" data-group="reference" data-prompt="false"><summary><h3 class="topic-title">Что важно помнить</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body"><ul>
-<li>Макет Figma требует доступа агента (через figma-console) к конкретному файлу. Наличие шаблона
+<li>Макет Figma требует доступа агента (через figma-console) к конкретному файлу. Если figma-console не отвечает, агент попробует запасные подключения и скажет, какое использовал.</li>
+<li>При установке npm может писать о «уязвимостях» в инструментах сборки. Это известно и не влияет на сайт. Не запускай <code>npm audit fix --force</code>: он откатывает Next.js на старую версию. Наличие шаблона
 само этот доступ не создаёт.</li>
 <li>Демонстрационные салатовый цвет, шрифт Manrope и картинки нужно заменить
 для клиента.</li>
