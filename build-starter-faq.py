@@ -12,15 +12,19 @@ md = MarkdownIt("commonmark", {"html": False}).enable("table")
 
 GROUPS = [
     ("start", "Начало работы", "Выбор шаблона, материалы и первый сайт"),
+    ("tools", "Claude и Codex", "Что общее, чем отличаются и как подготовить компьютер"),
     ("context", "Контекст и перенос", "Бриф, новый чат, SSD и другой компьютер"),
     ("system", "Дизайн-система", "Концепт, общие элементы и Storybook"),
     ("pages", "Страницы и правки", "Figma, сайт, клиентские правки и мобильная версия"),
     ("review", "Проверка и публикация", "Независимое ревью, аудит и исправления"),
     ("reference", "Правила и справка", "Состав пака, глобальные настройки и источники"),
 ]
-ICON_NAMES = dict(zip([g[0] for g in GROUPS], ['flag', 'folder', 'grid', 'layout', 'check-circle', 'book-open']))
+ICON_NAMES = dict(zip([g[0] for g in GROUPS], ['flag', 'terminal', 'folder', 'grid', 'layout', 'check-circle', 'book-open']))
 # Feather icons, MIT; original SVGs and license are retained in assets/feather.
 ART = {group: (ROOT / 'assets' / 'feather' / (name + '.svg')).read_text(encoding='utf-8') for group, name in ICON_NAMES.items()}
+
+# Old anchors of renamed topics keep working: the page script opens the topic by alias.
+ALIASES = {"Как пользоваться стартером сайтов (Claude Code и Codex)": ["Как пользоваться codex-nextjs-site-starter"]}
 
 def title_markup(title):
     match = re.match(r'^(Промпт \d+[а-я]?\.)\s+(.+)$', title)
@@ -29,6 +33,8 @@ def title_markup(title):
     return f'<span class="prompt-number">{html.escape(match[1])} </span><span class="prompt-name">{html.escape(match[2])}</span>'
 
 def group_for(title):
+    if title in {"Claude и Codex: что общее и что отличается", "Подготовить компьютер один раз"}:
+        return "tools"
     numbered = re.match(r"Промпт (\d+)([а-я]?)\.", title)
     if numbered:
         number, suffix = int(numbered[1]), numbered[2]
@@ -50,7 +56,7 @@ def group_for(title):
         return "review"
     if title == "GitHub: рабочие сценарии":
         return "context"
-    if title in {"Словарь для дизайнера", "Какие навыки входят в комплект", "Ежедневный короткий порядок", "Что важно помнить", "Глобальные сценарии и независимая проверка", "Что включено", "Источники"}:
+    if title in {"Словарь для дизайнера", "Какие навыки входят в комплект", "Ежедневный короткий порядок", "Что важно помнить", "Глобальные сценарии и независимая проверка", "Что включено", "Что шаблон делает по умолчанию", "Источники"}:
         return "reference"
     return "start"
 
@@ -109,7 +115,9 @@ for group_id, label, description in GROUPS:
     nav.append(f'<details class="nav-group"{opened}><summary class="group-link"><span>{label}</span><span class="nav-chevron" aria-hidden="true"></span></summary><div class="topic-links"><a class="topic-link" href="#group-{group_id}">Обзор темы</a>' + "".join(f'<a class="topic-link" href="#{c["id"]}">{title_markup(c["title"])}</a>' for c in group_cards) + '</div></details>')
     articles = []
     for c in group_cards:
-        articles.append(f'<details class="topic" id="{c["id"]}" data-group="{group_id}" data-prompt="{str(c["prompt"]).lower()}"><summary><h3 class="topic-title">{title_markup(c["title"])}</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body">{c["rendered"]}</div></details>')
+        alias = "".join(" " + "topic-" + hashlib.sha256(a.encode()).hexdigest()[:10] for a in ALIASES.get(c["original"], []))
+        alias_attr = f' data-alias="{alias.strip()}"' if alias else ""
+        articles.append(f'<details class="topic" id="{c["id"]}"{alias_attr} data-group="{group_id}" data-prompt="{str(c["prompt"]).lower()}"><summary><h3 class="topic-title">{title_markup(c["title"])}</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body">{c["rendered"]}</div></details>')
     sections.append(f'<section class="topic-group" id="group-{group_id}"><h2>{label}</h2>' + "".join(articles) + '</section>')
 
 template = (ROOT / "starter-faq-template.html").read_text(encoding="utf-8")

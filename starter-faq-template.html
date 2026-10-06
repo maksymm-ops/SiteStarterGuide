@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Site Starter Guide</title>
-<meta name="description" content="Сценарии и промпты для работы над сайтом: материалы, Figma, дизайн-система, проверка и публикация.">
+<meta name="description" content="Гайд для Claude Code и Codex: как подготовить компьютер, собрать сайт на стартовом шаблоне и пользоваться готовыми промптами — материалы, Figma, дизайн-система, проверка и публикация.">
 <style>
 :root{--ink:#202020;--muted:#636363;--line:#e9e9e7;--soft:#f7f7f5;--side:272px}
 *{box-sizing:border-box}
@@ -122,6 +122,7 @@ h1{font-size:54px;line-height:56px;letter-spacing:-1.875px;font-weight:700;margi
 .quick-link:hover,.prompt-filter:hover{background:#efefed}.prompt-filter input{width:14px;height:14px}
 #result-count{font-size:14px;line-height:20px;flex-basis:100%}
 .category-section{margin-bottom:56px}.category-section h2,.topic-group h2{font-size:32px;line-height:40px;letter-spacing:-.75px;font-weight:700;margin:0 0 24px}
+.lede{font-size:18px;line-height:28px;color:var(--muted,#5f5e5b);margin:-8px 0 24px}
 .category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 24px}
 .category-card{display:flex;flex-direction:column;min-height:206px;background:var(--soft);border-radius:16px;padding:24px;text-decoration:none;color:var(--ink)}
 .category-card:hover{background:#eeedeb}.category-card h3{font-size:20px;line-height:28px;font-weight:700;letter-spacing:-.125px;margin:0 0 4px}
@@ -140,7 +141,7 @@ h1{font-size:54px;line-height:56px;letter-spacing:-1.875px;font-weight:700;margi
 @media(min-width:1600px){main{padding:48px 24px;max-width:none}}
 @media(max-width:1100px){:root{--side:280px}.sidebar{padding:20px 16px}main{padding:48px 24px}}
 @media(max-width:1100px){:root{--side:0px}html{scroll-padding-top:80px}.masthead{padding:0 16px}.masthead .brand{font-size:18px}.top-links{gap:12px}.top-links>.source-top{display:none}.mobile-nav{display:block}.sidebar{display:none;position:fixed;top:64px;bottom:auto;width:100%;max-height:calc(100dvh - 64px);padding:20px 16px;overflow-y:auto;border-bottom:1px solid var(--line)}.sidebar.expanded{display:flex}.sidebar .toc{display:block;max-height:none;padding:0}.nav-heading,.source-link{display:block}main{margin-left:0;padding:24px}.page-header{margin-bottom:40px;text-align:left}h1{font-size:42px;line-height:48px;letter-spacing:-1.375px;margin:0 0 24px;max-width:none}.search-box{margin:0;height:56px;padding:0 16px 0 24px;border-radius:200px;gap:16px}#search{font-size:16px;padding:0}.search-options{margin-top:24px;font-size:14px}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.topic-group h2,.category-section h2{font-size:32px;line-height:40px;margin-bottom:24px}.topic-title{font-size:16px}.topic-body{font-size:16px}.topic,.topic-group{scroll-margin-top:16px}.copy-block code{font-size:14px}#toast{left:50%}}
-@media(max-width:600px){.category-grid{grid-template-columns:1fr;margin:0;gap:28px}.category-card{min-height:186px}.category-section h2{margin-left:0}.quick-link,.prompt-filter{padding:4px 12px}.category-section{margin-bottom:48px}}
+@media(max-width:600px){.topic-body table{min-width:0;table-layout:auto;font-size:12px}.topic-body th,.topic-body td{padding:8px 6px;overflow-wrap:break-word}.topic-body td code{font-size:11px;padding:1px 3px}.topic-body td:not(:first-child){overflow-wrap:anywhere}.category-grid{grid-template-columns:1fr;margin:0;gap:28px}.category-card{min-height:186px}.category-section h2{margin-left:0}.quick-link,.prompt-filter{padding:4px 12px}.category-section{margin-bottom:48px}}
 .mobile-resources{display:none}
 @media(max-width:1100px){:root{--content-inset:max(24px,calc((100vw - 804px)/2))}html{scroll-padding-top:80px}.masthead{height:64px;grid-template-columns:1fr auto;gap:12px;padding:0 var(--content-inset)}.masthead .brand{grid-column:1;grid-row:1}.masthead>.mobile-nav{position:static;grid-column:2;grid-row:1;display:grid;place-items:center;width:44px;height:44px}.masthead>.top-links,.masthead>.primary-link{display:none}.sidebar{top:64px;max-height:calc(100dvh - 64px);padding:20px calc(var(--content-inset) - 8px)}.mobile-resources{display:flex;flex-direction:column;gap:12px;padding:20px 8px 0;margin-top:20px;border-top:1px solid var(--line);flex-shrink:0}.mobile-resources .top-links{display:flex;flex-direction:column;align-items:flex-start;gap:0;font-size:14px}.mobile-resources .primary-link{align-self:flex-start;background:#0075de;color:#fff;padding:8px 14px;border-radius:8px;font-size:14px;line-height:24px;text-decoration:none}}
 @media(min-width:1101px){.masthead .top-links{position:absolute;left:max(304px,calc(50% - 262px))}.masthead .primary-link{grid-column:3}}
@@ -151,7 +152,7 @@ h1{font-size:54px;line-height:56px;letter-spacing:-1.875px;font-weight:700;margi
 </head>
 <body id="top">
 <a class="skip" href="#main">Перейти к материалам</a>
-<header class="masthead"><a class="brand" href="#top">Site Starter Guide</a><nav class="top-links" aria-label="Быстрый доступ"><a href="#topic-27fdcb8140">Как пользоваться</a><a href="https://learn.chatgpt.com/learn/codex" target="_blank" rel="noopener noreferrer">Помощь по Codex ↗</a><a href="#topic-d0578b52b3">Источники</a></nav><a class="primary-link" href="https://github.com/maisjandesign/codex-nextjs-site-starter/tree/main" target="_blank" rel="noopener noreferrer" title="Репозиторий Site Starter на GitHub">Открыть Site Starter ↗</a><button type="button" class="mobile-nav" aria-label="Открыть оглавление" aria-controls="guide-navigation" aria-expanded="false" disabled>Оглавление</button></header>
+<header class="masthead"><a class="brand" href="#top">Site Starter Guide</a><nav class="top-links" aria-label="Быстрый доступ"><a href="#topic-73e0875386">Как пользоваться</a><a href="https://learn.chatgpt.com/learn/codex" target="_blank" rel="noopener noreferrer">Помощь по Codex ↗</a><a href="#topic-d0578b52b3">Источники</a></nav><a class="primary-link" href="https://github.com/maisjandesign/codex-nextjs-site-starter/tree/main" target="_blank" rel="noopener noreferrer" title="Репозиторий Site Starter на GitHub">Открыть Site Starter ↗</a><button type="button" class="mobile-nav" aria-label="Открыть оглавление" aria-controls="guide-navigation" aria-expanded="false" disabled>Оглавление</button></header>
 <aside id="guide-navigation" class="sidebar" aria-label="Навигация по гайду">
 <a class="brand" href="#main">Site Starter Guide</a>
 
@@ -163,6 +164,7 @@ h1{font-size:54px;line-height:56px;letter-spacing:-1.875px;font-weight:700;margi
 <main id="main" tabindex="-1">
 <header class="page-header">
 <h1>Гайд и промпты для сайта</h1>
+<p class="lede">Для Claude Code и Codex: подготовка компьютера, сборка сайта на стартовом шаблоне и готовые промпты.</p>
 <div role="search">
 <label class="search-box" for="search"><span class="search-icon" aria-hidden="true"></span><input id="search" type="search" placeholder="Поиск по гайду" aria-label="Поиск по всему гайду" autocomplete="off" disabled><button type="button" class="clear" aria-label="Очистить поиск" hidden>×</button></label>
 <div class="search-options"><a class="quick-link" href="#group-context">Бэкап</a><a class="quick-link" href="#group-system">Дизайн-система</a><a class="quick-link" href="#topic-be60156a2c">Ревью</a><label class="prompt-filter"><input id="prompt-only" type="checkbox" disabled>Только промпты</label><span id="result-count" role="status" hidden></span></div>
@@ -190,7 +192,7 @@ search.addEventListener('input',apply);clear.addEventListener('click',()=>{searc
 function closeNav(){const restoreFocus=sidebar.contains(document.activeElement);sidebar.classList.remove('expanded');mobile.setAttribute('aria-expanded','false');mobile.setAttribute('aria-label','Открыть оглавление');if(restoreFocus&&compactHeader.matches)mobile.focus()}
 mobile.addEventListener('click',()=>{const expanded=sidebar.classList.toggle('expanded');mobile.setAttribute('aria-expanded',String(expanded));mobile.setAttribute('aria-label',expanded?'Закрыть оглавление':'Открыть оглавление')});
 function mark(id){navLinks.forEach(a=>{const on=a.hash==='#'+id;a.classList.toggle('active',on);if(on)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}
-function reveal(hash,scroll=true){let id;try{id=decodeURIComponent(hash.replace(/^#/,''))}catch{return}const target=document.getElementById(id);if(!target)return;if(target.hidden||target.closest('.topic-group')?.hidden)reset();if(target.matches('.topic')){target.open=true;mark(target.id)}closeNav();if(scroll)requestAnimationFrame(()=>{target.scrollIntoView({block:'start'});const focusTarget=target.id==='main'?target:target.matches('.topic')?target.querySelector('summary'):null;focusTarget?.focus({preventScroll:true})});}
+function reveal(hash,scroll=true){let id;try{id=decodeURIComponent(hash.replace(/^#/,''))}catch{return}const target=document.getElementById(id)||document.querySelector('[data-alias~="'+id+'"]');if(!target)return;if(target.hidden||target.closest('.topic-group')?.hidden)reset();if(target.matches('.topic')){target.open=true;mark(target.id)}closeNav();if(scroll)requestAnimationFrame(()=>{target.scrollIntoView({block:'start'});const focusTarget=target.id==='main'?target:target.matches('.topic')?target.querySelector('summary'):null;focusTarget?.focus({preventScroll:true})});}
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',event=>{event.preventDefault();const hash=a.getAttribute('href');try{history.pushState(null,'',hash)}catch{location.hash=hash}reveal(hash)}));window.addEventListener('hashchange',()=>reveal(location.hash));window.addEventListener('popstate',()=>reveal(location.hash));if(location.hash)reveal(location.hash);
 const observer=new IntersectionObserver(entries=>{const first=entries.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top)[0];if(first)mark(first.target.id)},{rootMargin:'-15% 0px -60% 0px'});cards.forEach(c=>observer.observe(c));
 function toast(text){const box=document.querySelector('#toast');clearTimeout(toastTimer);box.textContent=text;box.hidden=false;toastTimer=setTimeout(()=>box.hidden=true,4000)}

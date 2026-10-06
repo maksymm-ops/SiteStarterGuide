@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Site Starter Guide</title>
-<meta name="description" content="Сценарии и промпты для работы над сайтом: материалы, Figma, дизайн-система, проверка и публикация.">
+<meta name="description" content="Гайд для Claude Code и Codex: как подготовить компьютер, собрать сайт на стартовом шаблоне и пользоваться готовыми промптами — материалы, Figma, дизайн-система, проверка и публикация.">
 <style>
 :root{--ink:#202020;--muted:#636363;--line:#e9e9e7;--soft:#f7f7f5;--side:272px}
 *{box-sizing:border-box}
@@ -122,6 +122,7 @@ h1{font-size:54px;line-height:56px;letter-spacing:-1.875px;font-weight:700;margi
 .quick-link:hover,.prompt-filter:hover{background:#efefed}.prompt-filter input{width:14px;height:14px}
 #result-count{font-size:14px;line-height:20px;flex-basis:100%}
 .category-section{margin-bottom:56px}.category-section h2,.topic-group h2{font-size:32px;line-height:40px;letter-spacing:-.75px;font-weight:700;margin:0 0 24px}
+.lede{font-size:18px;line-height:28px;color:var(--muted,#5f5e5b);margin:-8px 0 24px}
 .category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 24px}
 .category-card{display:flex;flex-direction:column;min-height:206px;background:var(--soft);border-radius:16px;padding:24px;text-decoration:none;color:var(--ink)}
 .category-card:hover{background:#eeedeb}.category-card h3{font-size:20px;line-height:28px;font-weight:700;letter-spacing:-.125px;margin:0 0 4px}
@@ -140,7 +141,7 @@ h1{font-size:54px;line-height:56px;letter-spacing:-1.875px;font-weight:700;margi
 @media(min-width:1600px){main{padding:48px 24px;max-width:none}}
 @media(max-width:1100px){:root{--side:280px}.sidebar{padding:20px 16px}main{padding:48px 24px}}
 @media(max-width:1100px){:root{--side:0px}html{scroll-padding-top:80px}.masthead{padding:0 16px}.masthead .brand{font-size:18px}.top-links{gap:12px}.top-links>.source-top{display:none}.mobile-nav{display:block}.sidebar{display:none;position:fixed;top:64px;bottom:auto;width:100%;max-height:calc(100dvh - 64px);padding:20px 16px;overflow-y:auto;border-bottom:1px solid var(--line)}.sidebar.expanded{display:flex}.sidebar .toc{display:block;max-height:none;padding:0}.nav-heading,.source-link{display:block}main{margin-left:0;padding:24px}.page-header{margin-bottom:40px;text-align:left}h1{font-size:42px;line-height:48px;letter-spacing:-1.375px;margin:0 0 24px;max-width:none}.search-box{margin:0;height:56px;padding:0 16px 0 24px;border-radius:200px;gap:16px}#search{font-size:16px;padding:0}.search-options{margin-top:24px;font-size:14px}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.topic-group h2,.category-section h2{font-size:32px;line-height:40px;margin-bottom:24px}.topic-title{font-size:16px}.topic-body{font-size:16px}.topic,.topic-group{scroll-margin-top:16px}.copy-block code{font-size:14px}#toast{left:50%}}
-@media(max-width:600px){.category-grid{grid-template-columns:1fr;margin:0;gap:28px}.category-card{min-height:186px}.category-section h2{margin-left:0}.quick-link,.prompt-filter{padding:4px 12px}.category-section{margin-bottom:48px}}
+@media(max-width:600px){.topic-body table{min-width:0;table-layout:auto;font-size:12px}.topic-body th,.topic-body td{padding:8px 6px;overflow-wrap:break-word}.topic-body td code{font-size:11px;padding:1px 3px}.topic-body td:not(:first-child){overflow-wrap:anywhere}.category-grid{grid-template-columns:1fr;margin:0;gap:28px}.category-card{min-height:186px}.category-section h2{margin-left:0}.quick-link,.prompt-filter{padding:4px 12px}.category-section{margin-bottom:48px}}
 .mobile-resources{display:none}
 @media(max-width:1100px){:root{--content-inset:max(24px,calc((100vw - 804px)/2))}html{scroll-padding-top:80px}.masthead{height:64px;grid-template-columns:1fr auto;gap:12px;padding:0 var(--content-inset)}.masthead .brand{grid-column:1;grid-row:1}.masthead>.mobile-nav{position:static;grid-column:2;grid-row:1;display:grid;place-items:center;width:44px;height:44px}.masthead>.top-links,.masthead>.primary-link{display:none}.sidebar{top:64px;max-height:calc(100dvh - 64px);padding:20px calc(var(--content-inset) - 8px)}.mobile-resources{display:flex;flex-direction:column;gap:12px;padding:20px 8px 0;margin-top:20px;border-top:1px solid var(--line);flex-shrink:0}.mobile-resources .top-links{display:flex;flex-direction:column;align-items:flex-start;gap:0;font-size:14px}.mobile-resources .primary-link{align-self:flex-start;background:#0075de;color:#fff;padding:8px 14px;border-radius:8px;font-size:14px;line-height:24px;text-decoration:none}}
 @media(min-width:1101px){.masthead .top-links{position:absolute;left:max(304px,calc(50% - 262px))}.masthead .primary-link{grid-column:3}}
@@ -175,26 +176,28 @@ SOFTWARE.
 </head>
 <body id="top">
 <a class="skip" href="#main">Перейти к материалам</a>
-<header class="masthead"><a class="brand" href="#top">Site Starter Guide</a><nav class="top-links" aria-label="Быстрый доступ"><a href="#topic-27fdcb8140">Как пользоваться</a><a href="https://learn.chatgpt.com/learn/codex" target="_blank" rel="noopener noreferrer">Помощь по Codex ↗</a><a href="#topic-d0578b52b3">Источники</a></nav><a class="primary-link" href="https://github.com/maisjandesign/codex-nextjs-site-starter/tree/main" target="_blank" rel="noopener noreferrer" title="Репозиторий Site Starter на GitHub">Открыть Site Starter ↗</a><button type="button" class="mobile-nav" aria-label="Открыть оглавление" aria-controls="guide-navigation" aria-expanded="false" disabled>Оглавление</button></header>
+<header class="masthead"><a class="brand" href="#top">Site Starter Guide</a><nav class="top-links" aria-label="Быстрый доступ"><a href="#topic-73e0875386">Как пользоваться</a><a href="https://learn.chatgpt.com/learn/codex" target="_blank" rel="noopener noreferrer">Помощь по Codex ↗</a><a href="#topic-d0578b52b3">Источники</a></nav><a class="primary-link" href="https://github.com/maisjandesign/codex-nextjs-site-starter/tree/main" target="_blank" rel="noopener noreferrer" title="Репозиторий Site Starter на GitHub">Открыть Site Starter ↗</a><button type="button" class="mobile-nav" aria-label="Открыть оглавление" aria-controls="guide-navigation" aria-expanded="false" disabled>Оглавление</button></header>
 <aside id="guide-navigation" class="sidebar" aria-label="Навигация по гайду">
 <a class="brand" href="#main">Site Starter Guide</a>
 
 <div class="nav-heading">Темы</div>
-<nav class="toc" id="toc" aria-label="Оглавление"><details class="nav-group"><summary class="group-link"><span>Начало работы</span><span class="nav-chevron" aria-hidden="true"></span></summary><div class="topic-links"><a class="topic-link" href="#group-start">Обзор темы</a><a class="topic-link" href="#topic-73e0875386">Как пользоваться стартером сайтов (Claude Code и Codex)</a><a class="topic-link" href="#topic-8b45c98b3f">Какой промпт выбрать</a><a class="topic-link" href="#topic-93187eb564">Claude и Codex: что общее и что отличается</a><a class="topic-link" href="#topic-5d0ab69bba">Подготовить компьютер один раз</a><a class="topic-link" href="#topic-fb0e02a7a1">Когда использовать этот шаблон</a><a class="topic-link" href="#topic-1057fd494f">Один раз на каждый новый сайт</a><a class="topic-link" href="#topic-4c86213b29">Если переносишь старый проект: сначала разбери материалы</a><a class="topic-link" href="#topic-8480314642">Концепт во время подготовки</a><a class="topic-link" href="#topic-a87ea5ae82"><span class="prompt-number">Промпт 1. </span><span class="prompt-name">Начать новый сайт</span></a><a class="topic-link" href="#topic-af64911bc9">Что шаблон делает по умолчанию</a><a class="topic-link" href="#topic-1b8d7e3f9c"><span class="prompt-number">Промпт 1а. </span><span class="prompt-name">Проверить материалы до сборки</span></a><a class="topic-link" href="#topic-6934ed037c">Промпты для дальнейшей работы</a><a class="topic-link" href="#topic-3fe94ce63c"><span class="prompt-number">Промпт 4а. </span><span class="prompt-name">Подготовить изображения и шрифты</span></a></div></details><details class="nav-group"><summary class="group-link"><span>Контекст и перенос</span><span class="nav-chevron" aria-hidden="true"></span></summary><div class="topic-links"><a class="topic-link" href="#group-context">Обзор темы</a><a class="topic-link" href="#topic-c6c6f1ddaa">Куда попадает информация</a><a class="topic-link" href="#topic-5d5267c70a"><span class="prompt-number">Промпт 2. </span><span class="prompt-name">Продолжить в новом чате</span></a><a class="topic-link" href="#topic-48af86703a"><span class="prompt-number">Промпт 2а. </span><span class="prompt-name">Сохранить состояние перед новым чатом</span></a><a class="topic-link" href="#topic-5a9d0f845c"><span class="prompt-number">Промпт 2б. </span><span class="prompt-name">Подготовить проект к переносу на SSD</span></a><a class="topic-link" href="#topic-c885395a40"><span class="prompt-number">Промпт 2в. </span><span class="prompt-name">Продолжить перенесённый проект на другом компьютере</span></a><a class="topic-link" href="#topic-dadb0c57df"><span class="prompt-number">Промпт 3. </span><span class="prompt-name">Обновились сведения о клиенте или тексты</span></a><a class="topic-link" href="#topic-ae3134c592"><span class="prompt-number">Промпт 4. </span><span class="prompt-name">Добавить или заменить референс</span></a><a class="topic-link" href="#topic-059b5adb4a">GitHub: рабочие сценарии</a><a class="topic-link" href="#topic-b735a1d84c"><span class="prompt-number">Промпт 13. </span><span class="prompt-name">Сохранить проект на GitHub</span></a><a class="topic-link" href="#topic-bf1549d3f1"><span class="prompt-number">Промпт 14. </span><span class="prompt-name">Проверить и сохранить текущий этап</span></a><a class="topic-link" href="#topic-1af13181a1"><span class="prompt-number">Промпт 15. </span><span class="prompt-name">Попробовать изменение в отдельной ветке</span></a><a class="topic-link" href="#topic-e15e4f9ade"><span class="prompt-number">Промпт 16. </span><span class="prompt-name">Утвердить ветку и перенести в основную версию</span></a><a class="topic-link" href="#topic-035cd8c1bf"><span class="prompt-number">Промпт 17. </span><span class="prompt-name">Продолжить с другого компьютера или агента</span></a><a class="topic-link" href="#topic-0037c37f0f"><span class="prompt-number">Промпт 18. </span><span class="prompt-name">Отменить конкретное неудачное изменение</span></a><a class="topic-link" href="#topic-7e594dfaab">Разобрать бэкап</a><a class="topic-link" href="#topic-96b7e97fe1">Сохранить состояние и продолжить</a></div></details><details class="nav-group"><summary class="group-link"><span>Дизайн-система</span><span class="nav-chevron" aria-hidden="true"></span></summary><div class="topic-links"><a class="topic-link" href="#group-system">Обзор темы</a><a class="topic-link" href="#topic-c98cae454d"><span class="prompt-number">Промпт 5. </span><span class="prompt-name">Обновить дизайн-систему</span></a><a class="topic-link" href="#topic-aaf951a71b"><span class="prompt-number">Промпт 5а. </span><span class="prompt-name">Обновить дизайн-систему по утверждённым страницам</span></a><a class="topic-link" href="#topic-c45737d483"><span class="prompt-number">Промпт 5б. </span><span class="prompt-name">Создать первую дизайн-систему из концепта</span></a><a class="topic-link" href="#topic-49ad69c7be"><span class="prompt-number">Промпт 5в. </span><span class="prompt-name">Закрепить использование дизайн-системы</span></a><a class="topic-link" href="#topic-d2e2f38a9e"><span class="prompt-number">Промпт 5г. </span><span class="prompt-name">Точно повторить размеры утверждённого макета</span></a><a class="topic-link" href="#topic-becaac6fa5">Создать или обновить систему</a><a class="topic-link" href="#topic-e053b9caed">Создать или обновить Storybook</a></div></details><details class="nav-group"><summary class="group-link"><span>Страницы и правки</span><span class="nav-chevron" aria-hidden="true"></span></summary><div class="topic-links"><a class="topic-link" href="#group-pages">Обзор темы</a><a class="topic-link" href="#topic-aec64442ba"><span class="prompt-number">Промпт 6. </span><span class="prompt-name">Добавить страницу или раздел</span></a><a class="topic-link" href="#topic-33997f6706"><span class="prompt-number">Промпт 6а. </span><span class="prompt-name">Собрать дополнительную страницу в Figma</span></a><a class="topic-link" href="#topic-c501a98aa0"><span class="prompt-number">Промпт 6б. </span><span class="prompt-name">Внести правки клиента с понятным масштабом</span></a><a class="topic-link" href="#topic-da7930fd74"><span class="prompt-number">Промпт 6в. </span><span class="prompt-name">Подготовить мобильную версию без готового макета</span></a><a class="topic-link" href="#topic-1a4c41ea3a"><span class="prompt-number">Промпт 6г. </span><span class="prompt-name">Сделать три варианта одного блока</span></a><a class="topic-link" href="#topic-4cf6c04a6e"><span class="prompt-number">Промпт 6д. </span><span class="prompt-name">Применить выбранный вариант</span></a><a class="topic-link" href="#topic-493da9f165"><span class="prompt-number">Промпт 6е. </span><span class="prompt-name">Настроить анимации</span></a><a class="topic-link" href="#topic-bd2fe66765"><span class="prompt-number">Промпт 6ж. </span><span class="prompt-name">Подключить настоящую форму</span></a><a class="topic-link" href="#topic-d93945e89e"><span class="prompt-number">Промпт 6з. </span><span class="prompt-name">Перенести изменения сайта в Figma</span></a><a class="topic-link" href="#topic-99877e1968"><span class="prompt-number">Промпт 6и. </span><span class="prompt-name">Объяснить эффект перед реализацией</span></a><a class="topic-link" href="#topic-bcd9a902e1"><span class="prompt-number">Промпт 6к. </span><span class="prompt-name">Сделать кнопки и ссылки рабочими</span></a><a class="topic-link" href="#topic-3c430be4d9"><span class="prompt-number">Промпт 6л. </span><span class="prompt-name">Подготовить SEO и превью ссылок</span></a><a class="topic-link" href="#topic-cccce5e742"><span class="prompt-number">Промпт 6м. </span><span class="prompt-name">Подготовить передачу сайта клиенту</span></a></div></details><details class="nav-group"><summary class="group-link"><span>Проверка и публикация</span><span class="nav-chevron" aria-hidden="true"></span></summary><div class="topic-links"><a class="topic-link" href="#group-review">Обзор темы</a><a class="topic-link" href="#topic-1f951f9b87"><span class="prompt-number">Промпт 7. </span><span class="prompt-name">Проверить готовый сайт</span></a><a class="topic-link" href="#topic-d3169a9045"><span class="prompt-number">Промпт 7а. </span><span class="prompt-name">Проверить только выбранный участок</span></a><a class="topic-link" href="#topic-5200b8f40e"><span class="prompt-number">Промпт 7б. </span><span class="prompt-name">Проверить элемент в сложных условиях</span></a><a class="topic-link" href="#topic-570e26a824"><span class="prompt-number">Промпт 8. </span><span class="prompt-name">Провести отдельный аудит</span></a><a class="topic-link" href="#topic-255d864d8c"><span class="prompt-number">Промпт 9. </span><span class="prompt-name">Исправить замечания аудита</span></a><a class="topic-link" href="#topic-38918d09a6"><span class="prompt-number">Промпт 10. </span><span class="prompt-name">Подготовить публикацию</span></a><a class="topic-link" href="#topic-45eedc7162"><span class="prompt-number">Промпт 10а. </span><span class="prompt-name">Показать клиенту рабочую версию</span></a><a class="topic-link" href="#topic-8374e3f7dc"><span class="prompt-number">Промпт 10б. </span><span class="prompt-name">Проверить опубликованный сайт</span></a><a class="topic-link" href="#topic-67778fd1a6"><span class="prompt-number">Промпт 10в. </span><span class="prompt-name">Выбрать способ размещения сайта на Next.js</span></a><a class="topic-link" href="#topic-be60156a2c">Когда запускается независимая проверка</a></div></details><details class="nav-group"><summary class="group-link"><span>Правила и справка</span><span class="nav-chevron" aria-hidden="true"></span></summary><div class="topic-links"><a class="topic-link" href="#group-reference">Обзор темы</a><a class="topic-link" href="#topic-1d1e901ddf">Словарь для дизайнера</a><a class="topic-link" href="#topic-a689dcbe7b">Какие навыки входят в комплект</a><a class="topic-link" href="#topic-77af4db057"><span class="prompt-number">Промпт 11. </span><span class="prompt-name">Сайт или Storybook не запускается</span></a><a class="topic-link" href="#topic-6f96e45437"><span class="prompt-number">Промпт 12. </span><span class="prompt-name">Проверить обновление пака для старого проекта</span></a><a class="topic-link" href="#topic-75d4238e6e">Ежедневный короткий порядок</a><a class="topic-link" href="#topic-9a24d07e9d">Что важно помнить</a><a class="topic-link" href="#topic-831f5ea8f7">Глобальные сценарии и независимая проверка</a><a class="topic-link" href="#topic-2f9f16227e">Что включено</a><a class="topic-link" href="#topic-d0578b52b3">Источники</a></div></details></nav>
+<nav class="toc" id="toc" aria-label="Оглавление"><details class="nav-group"><summary class="group-link"><span>Начало работы</span><span class="nav-chevron" aria-hidden="true"></span></summary><div class="topic-links"><a class="topic-link" href="#group-start">Обзор темы</a><a class="topic-link" href="#topic-73e0875386">Как пользоваться стартером сайтов (Claude Code и Codex)</a><a class="topic-link" href="#topic-8b45c98b3f">Какой промпт выбрать</a><a class="topic-link" href="#topic-fb0e02a7a1">Когда использовать этот шаблон</a><a class="topic-link" href="#topic-1057fd494f">Один раз на каждый новый сайт</a><a class="topic-link" href="#topic-4c86213b29">Если переносишь старый проект: сначала разбери материалы</a><a class="topic-link" href="#topic-8480314642">Концепт во время подготовки</a><a class="topic-link" href="#topic-a87ea5ae82"><span class="prompt-number">Промпт 1. </span><span class="prompt-name">Начать новый сайт</span></a><a class="topic-link" href="#topic-1b8d7e3f9c"><span class="prompt-number">Промпт 1а. </span><span class="prompt-name">Проверить материалы до сборки</span></a><a class="topic-link" href="#topic-6934ed037c">Промпты для дальнейшей работы</a><a class="topic-link" href="#topic-3fe94ce63c"><span class="prompt-number">Промпт 4а. </span><span class="prompt-name">Подготовить изображения и шрифты</span></a></div></details><details class="nav-group"><summary class="group-link"><span>Claude и Codex</span><span class="nav-chevron" aria-hidden="true"></span></summary><div class="topic-links"><a class="topic-link" href="#group-tools">Обзор темы</a><a class="topic-link" href="#topic-93187eb564">Claude и Codex: что общее и что отличается</a><a class="topic-link" href="#topic-5d0ab69bba">Подготовить компьютер один раз</a></div></details><details class="nav-group"><summary class="group-link"><span>Контекст и перенос</span><span class="nav-chevron" aria-hidden="true"></span></summary><div class="topic-links"><a class="topic-link" href="#group-context">Обзор темы</a><a class="topic-link" href="#topic-c6c6f1ddaa">Куда попадает информация</a><a class="topic-link" href="#topic-5d5267c70a"><span class="prompt-number">Промпт 2. </span><span class="prompt-name">Продолжить в новом чате</span></a><a class="topic-link" href="#topic-48af86703a"><span class="prompt-number">Промпт 2а. </span><span class="prompt-name">Сохранить состояние перед новым чатом</span></a><a class="topic-link" href="#topic-5a9d0f845c"><span class="prompt-number">Промпт 2б. </span><span class="prompt-name">Подготовить проект к переносу на SSD</span></a><a class="topic-link" href="#topic-c885395a40"><span class="prompt-number">Промпт 2в. </span><span class="prompt-name">Продолжить перенесённый проект на другом компьютере</span></a><a class="topic-link" href="#topic-dadb0c57df"><span class="prompt-number">Промпт 3. </span><span class="prompt-name">Обновились сведения о клиенте или тексты</span></a><a class="topic-link" href="#topic-ae3134c592"><span class="prompt-number">Промпт 4. </span><span class="prompt-name">Добавить или заменить референс</span></a><a class="topic-link" href="#topic-059b5adb4a">GitHub: рабочие сценарии</a><a class="topic-link" href="#topic-b735a1d84c"><span class="prompt-number">Промпт 13. </span><span class="prompt-name">Сохранить проект на GitHub</span></a><a class="topic-link" href="#topic-bf1549d3f1"><span class="prompt-number">Промпт 14. </span><span class="prompt-name">Проверить и сохранить текущий этап</span></a><a class="topic-link" href="#topic-1af13181a1"><span class="prompt-number">Промпт 15. </span><span class="prompt-name">Попробовать изменение в отдельной ветке</span></a><a class="topic-link" href="#topic-e15e4f9ade"><span class="prompt-number">Промпт 16. </span><span class="prompt-name">Утвердить ветку и перенести в основную версию</span></a><a class="topic-link" href="#topic-035cd8c1bf"><span class="prompt-number">Промпт 17. </span><span class="prompt-name">Продолжить с другого компьютера или агента</span></a><a class="topic-link" href="#topic-0037c37f0f"><span class="prompt-number">Промпт 18. </span><span class="prompt-name">Отменить конкретное неудачное изменение</span></a><a class="topic-link" href="#topic-7e594dfaab">Разобрать бэкап</a><a class="topic-link" href="#topic-96b7e97fe1">Сохранить состояние и продолжить</a></div></details><details class="nav-group"><summary class="group-link"><span>Дизайн-система</span><span class="nav-chevron" aria-hidden="true"></span></summary><div class="topic-links"><a class="topic-link" href="#group-system">Обзор темы</a><a class="topic-link" href="#topic-c98cae454d"><span class="prompt-number">Промпт 5. </span><span class="prompt-name">Обновить дизайн-систему</span></a><a class="topic-link" href="#topic-aaf951a71b"><span class="prompt-number">Промпт 5а. </span><span class="prompt-name">Обновить дизайн-систему по утверждённым страницам</span></a><a class="topic-link" href="#topic-c45737d483"><span class="prompt-number">Промпт 5б. </span><span class="prompt-name">Создать первую дизайн-систему из концепта</span></a><a class="topic-link" href="#topic-49ad69c7be"><span class="prompt-number">Промпт 5в. </span><span class="prompt-name">Закрепить использование дизайн-системы</span></a><a class="topic-link" href="#topic-d2e2f38a9e"><span class="prompt-number">Промпт 5г. </span><span class="prompt-name">Точно повторить размеры утверждённого макета</span></a><a class="topic-link" href="#topic-becaac6fa5">Создать или обновить систему</a><a class="topic-link" href="#topic-e053b9caed">Создать или обновить Storybook</a></div></details><details class="nav-group"><summary class="group-link"><span>Страницы и правки</span><span class="nav-chevron" aria-hidden="true"></span></summary><div class="topic-links"><a class="topic-link" href="#group-pages">Обзор темы</a><a class="topic-link" href="#topic-aec64442ba"><span class="prompt-number">Промпт 6. </span><span class="prompt-name">Добавить страницу или раздел</span></a><a class="topic-link" href="#topic-33997f6706"><span class="prompt-number">Промпт 6а. </span><span class="prompt-name">Собрать дополнительную страницу в Figma</span></a><a class="topic-link" href="#topic-c501a98aa0"><span class="prompt-number">Промпт 6б. </span><span class="prompt-name">Внести правки клиента с понятным масштабом</span></a><a class="topic-link" href="#topic-da7930fd74"><span class="prompt-number">Промпт 6в. </span><span class="prompt-name">Подготовить мобильную версию без готового макета</span></a><a class="topic-link" href="#topic-1a4c41ea3a"><span class="prompt-number">Промпт 6г. </span><span class="prompt-name">Сделать три варианта одного блока</span></a><a class="topic-link" href="#topic-4cf6c04a6e"><span class="prompt-number">Промпт 6д. </span><span class="prompt-name">Применить выбранный вариант</span></a><a class="topic-link" href="#topic-493da9f165"><span class="prompt-number">Промпт 6е. </span><span class="prompt-name">Настроить анимации</span></a><a class="topic-link" href="#topic-bd2fe66765"><span class="prompt-number">Промпт 6ж. </span><span class="prompt-name">Подключить настоящую форму</span></a><a class="topic-link" href="#topic-d93945e89e"><span class="prompt-number">Промпт 6з. </span><span class="prompt-name">Перенести изменения сайта в Figma</span></a><a class="topic-link" href="#topic-99877e1968"><span class="prompt-number">Промпт 6и. </span><span class="prompt-name">Объяснить эффект перед реализацией</span></a><a class="topic-link" href="#topic-bcd9a902e1"><span class="prompt-number">Промпт 6к. </span><span class="prompt-name">Сделать кнопки и ссылки рабочими</span></a><a class="topic-link" href="#topic-3c430be4d9"><span class="prompt-number">Промпт 6л. </span><span class="prompt-name">Подготовить SEO и превью ссылок</span></a><a class="topic-link" href="#topic-cccce5e742"><span class="prompt-number">Промпт 6м. </span><span class="prompt-name">Подготовить передачу сайта клиенту</span></a></div></details><details class="nav-group"><summary class="group-link"><span>Проверка и публикация</span><span class="nav-chevron" aria-hidden="true"></span></summary><div class="topic-links"><a class="topic-link" href="#group-review">Обзор темы</a><a class="topic-link" href="#topic-1f951f9b87"><span class="prompt-number">Промпт 7. </span><span class="prompt-name">Проверить готовый сайт</span></a><a class="topic-link" href="#topic-d3169a9045"><span class="prompt-number">Промпт 7а. </span><span class="prompt-name">Проверить только выбранный участок</span></a><a class="topic-link" href="#topic-5200b8f40e"><span class="prompt-number">Промпт 7б. </span><span class="prompt-name">Проверить элемент в сложных условиях</span></a><a class="topic-link" href="#topic-570e26a824"><span class="prompt-number">Промпт 8. </span><span class="prompt-name">Провести отдельный аудит</span></a><a class="topic-link" href="#topic-255d864d8c"><span class="prompt-number">Промпт 9. </span><span class="prompt-name">Исправить замечания аудита</span></a><a class="topic-link" href="#topic-38918d09a6"><span class="prompt-number">Промпт 10. </span><span class="prompt-name">Подготовить публикацию</span></a><a class="topic-link" href="#topic-45eedc7162"><span class="prompt-number">Промпт 10а. </span><span class="prompt-name">Показать клиенту рабочую версию</span></a><a class="topic-link" href="#topic-8374e3f7dc"><span class="prompt-number">Промпт 10б. </span><span class="prompt-name">Проверить опубликованный сайт</span></a><a class="topic-link" href="#topic-67778fd1a6"><span class="prompt-number">Промпт 10в. </span><span class="prompt-name">Выбрать способ размещения сайта на Next.js</span></a><a class="topic-link" href="#topic-be60156a2c">Когда запускается независимая проверка</a></div></details><details class="nav-group"><summary class="group-link"><span>Правила и справка</span><span class="nav-chevron" aria-hidden="true"></span></summary><div class="topic-links"><a class="topic-link" href="#group-reference">Обзор темы</a><a class="topic-link" href="#topic-1d1e901ddf">Словарь для дизайнера</a><a class="topic-link" href="#topic-a689dcbe7b">Какие навыки входят в комплект</a><a class="topic-link" href="#topic-af64911bc9">Что шаблон делает по умолчанию</a><a class="topic-link" href="#topic-77af4db057"><span class="prompt-number">Промпт 11. </span><span class="prompt-name">Сайт или Storybook не запускается</span></a><a class="topic-link" href="#topic-6f96e45437"><span class="prompt-number">Промпт 12. </span><span class="prompt-name">Проверить обновление пака для старого проекта</span></a><a class="topic-link" href="#topic-75d4238e6e">Ежедневный короткий порядок</a><a class="topic-link" href="#topic-9a24d07e9d">Что важно помнить</a><a class="topic-link" href="#topic-831f5ea8f7">Глобальные сценарии и независимая проверка</a><a class="topic-link" href="#topic-2f9f16227e">Что включено</a><a class="topic-link" href="#topic-d0578b52b3">Источники</a></div></details></nav>
 <a class="source-link" href="codex-nextjs-site-starter-guide-ru.md">Исходный гайд .md</a>
 <div class="mobile-resources"></div>
 </aside>
 <main id="main" tabindex="-1">
 <header class="page-header">
 <h1>Гайд и промпты для сайта</h1>
+<p class="lede">Для Claude Code и Codex: подготовка компьютера, сборка сайта на стартовом шаблоне и готовые промпты.</p>
 <div role="search">
 <label class="search-box" for="search"><span class="search-icon" aria-hidden="true"></span><input id="search" type="search" placeholder="Поиск по гайду" aria-label="Поиск по всему гайду" autocomplete="off" disabled><button type="button" class="clear" aria-label="Очистить поиск" hidden>×</button></label>
 <div class="search-options"><a class="quick-link" href="#group-context">Бэкап</a><a class="quick-link" href="#group-system">Дизайн-система</a><a class="quick-link" href="#topic-be60156a2c">Ревью</a><label class="prompt-filter"><input id="prompt-only" type="checkbox" disabled>Только промпты</label><span id="result-count" role="status" hidden></span></div>
 </div>
 </header>
 <noscript><p>Для поиска и копирования включи JavaScript. Все материалы доступны ниже; промпты можно выделить и скопировать вручную.</p><style>@media(max-width:780px){.toc{display:block;max-height:140px}}</style></noscript>
-<section class="category-section" id="categories" aria-labelledby="categories-title"><h2 id="categories-title">Темы гайда</h2><div class="category-grid"><a class="category-card" href="#group-start"><h3>Начало работы</h3><p>Выбор шаблона, материалы и первый сайт</p><span class="category-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></span></a><a class="category-card" href="#group-context"><h3>Контекст и перенос</h3><p>Бриф, новый чат, SSD и другой компьютер</p><span class="category-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span></a><a class="category-card" href="#group-system"><h3>Дизайн-система</h3><p>Концепт, общие элементы и Storybook</p><span class="category-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span></a><a class="category-card" href="#group-pages"><h3>Страницы и правки</h3><p>Figma, сайт, клиентские правки и мобильная версия</p><span class="category-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></span></a><a class="category-card" href="#group-review"><h3>Проверка и публикация</h3><p>Независимое ревью, аудит и исправления</p><span class="category-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span></a><a class="category-card" href="#group-reference"><h3>Правила и справка</h3><p>Состав пака, глобальные настройки и источники</p><span class="category-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span></a></div></section>
-<div id="materials"><section class="topic-group" id="group-start"><h2>Начало работы</h2><details class="topic" id="topic-73e0875386" data-group="start" data-prompt="false"><summary><h3 class="topic-title">Как пользоваться стартером сайтов (Claude Code и Codex)</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body"><p>Памятка для нового клиентского сайта и дальнейшей работы с ним.
+<section class="category-section" id="categories" aria-labelledby="categories-title"><h2 id="categories-title">Темы гайда</h2><div class="category-grid"><a class="category-card" href="#group-start"><h3>Начало работы</h3><p>Выбор шаблона, материалы и первый сайт</p><span class="category-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></span></a><a class="category-card" href="#group-tools"><h3>Claude и Codex</h3><p>Что общее, чем отличаются и как подготовить компьютер</p><span class="category-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+</span></a><a class="category-card" href="#group-context"><h3>Контекст и перенос</h3><p>Бриф, новый чат, SSD и другой компьютер</p><span class="category-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span></a><a class="category-card" href="#group-system"><h3>Дизайн-система</h3><p>Концепт, общие элементы и Storybook</p><span class="category-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span></a><a class="category-card" href="#group-pages"><h3>Страницы и правки</h3><p>Figma, сайт, клиентские правки и мобильная версия</p><span class="category-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></span></a><a class="category-card" href="#group-review"><h3>Проверка и публикация</h3><p>Независимое ревью, аудит и исправления</p><span class="category-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span></a><a class="category-card" href="#group-reference"><h3>Правила и справка</h3><p>Состав пака, глобальные настройки и источники</p><span class="category-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span></a></div></section>
+<div id="materials"><section class="topic-group" id="group-start"><h2>Начало работы</h2><details class="topic" id="topic-73e0875386" data-alias="topic-27fdcb8140" data-group="start" data-prompt="false"><summary><h3 class="topic-title">Как пользоваться стартером сайтов (Claude Code и Codex)</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body"><p>Памятка для нового клиентского сайта и дальнейшей работы с ним.
 Шаблон: <a href="https://github.com/maksymm-ops/site-starter-max-edition-claude">site-starter-max-edition-claude</a> — твой приватный
 репозиторий. Он сделан на основе
 <a href="https://github.com/maisjandesign/codex-nextjs-site-starter">codex-nextjs-site-starter</a>
@@ -405,93 +408,6 @@ SOFTWARE.
 </table>
 <p>В квадратных скобках указывай свои данные. Для переноса между Figma и сайтом
 всегда обозначай, какую версию утвердили и куда переносить её решения.</p>
-</div></details><details class="topic" id="topic-93187eb564" data-group="start" data-prompt="false"><summary><h3 class="topic-title">Claude и Codex: что общее и что отличается</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body"><p>Один и тот же проект можно вести и в Claude Code, и в Codex: например,
-дома в одном, на работе в другом. Папка, правила, навыки шаблона и
-промпты общие.</p>
-<table>
-<thead>
-<tr>
-<th>Что</th>
-<th>Claude Code</th>
-<th>Codex</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Правила проекта</td>
-<td>Читает <code>CLAUDE.md</code>, который подключает <code>AGENTS.md</code></td>
-<td>Читает <code>AGENTS.md</code> сам</td>
-</tr>
-<tr>
-<td>4 навыка шаблона</td>
-<td>Находит сам в <code>.claude/skills/</code></td>
-<td>Читает их по пути, как сказано в <code>AGENTS.md</code></td>
-</tr>
-<tr>
-<td>Общие навыки (<code>better-*</code>, <code>gsap-*</code> и другие)</td>
-<td>Твои глобальные навыки Claude</td>
-<td>Твои глобальные навыки Codex</td>
-</tr>
-<tr>
-<td>Figma</td>
-<td>figma-console + Figma Desktop с плагином Desktop Bridge; запасные — figma-bridge, затем официальный Figma MCP</td>
-<td>То же, если они подключены в Codex</td>
-</tr>
-<tr>
-<td>Проверка в браузере</td>
-<td>chrome_devtools</td>
-<td>chrome_devtools или встроенный браузер Codex</td>
-</tr>
-<tr>
-<td>Независимое ревью после крупных этапов</td>
-<td>Запускается сам: агент-проверяющий</td>
-<td>Запускается сам: проверяющий внутри Codex, если поддерживается, иначе отдельный проход проверки</td>
-</tr>
-<tr>
-<td>Генерация картинок</td>
-<td>fal по твоим правилам</td>
-<td>fal, если подключён; иначе агент попросит оригиналы</td>
-</tr>
-</tbody>
-</table>
-<p>Если чего-то из таблицы на компьютере нет, агент продолжит по правилам
-проекта и скажет, что было недоступно. История чата между Claude и Codex
-не переносится: перед сменой сохраняй состояние промптом 2а.</p>
-</div></details><details class="topic" id="topic-5d0ab69bba" data-group="start" data-prompt="true"><summary><h3 class="topic-title">Подготовить компьютер один раз</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body"><p>Это нужно один раз на каждом компьютере, а не для каждого сайта.</p>
-<ol>
-<li>Node.js 22.14 или новее и npm.</li>
-<li>Git и GitHub CLI (<code>gh</code>, программа для работы с GitHub из командной
-строки) с входом в твой аккаунт — тогда агент сможет создавать
-репозитории клиентов.</li>
-<li>Figma Desktop и подключение figma-console с плагином Desktop Bridge.</li>
-<li>Подключение chrome_devtools (браузер, которым управляет агент).</li>
-<li>Общие навыки: <code>better-layout</code>, <code>better-typography</code>, <code>better-colors</code>,
-<code>better-writing</code>, <code>better-ui</code>, <code>accessibility</code>, <code>gsap-react</code>, <code>gsap-core</code>,
-<code>gsap-scrolltrigger</code>, <code>gsap-plugins</code>, <code>gsap-utils</code>, <code>variant</code>, <code>break</code>,
-<code>explain-interface</code>, <code>interface-review</code>.</li>
-</ol>
-<p>Навыки и общие правила одинаковые на всех компьютерах. Их источник —
-приватный репозиторий <a href="https://github.com/maksymm-ops/max-agent-skills">max-agent-skills</a>:
-копия твоей настройки Claude. Codex ставит из него то же самое по
-инструкции <code>CODEX-SETUP.md</code>. Полный комплект (шаблон, навыки, гайд) для
-переноса лежит в папке <code>F:\.Projects\Site Starter</code>: <code>Claude/</code> и <code>Codex/</code>.</p>
-<p>Проверку можно поручить агенту:</p>
-<div class="copy-block prompt"><div class="copy-bar"><span>Готовый промпт</span><button type="button" class="copy-button" disabled aria-label="Копировать промпт: Подготовить компьютер один раз">Копировать промпт</button></div><pre><code class="language-text">Проверь, готов ли этот компьютер к работе со стартером сайтов: Node.js,
-npm, Git, вход в gh, подключения figma-console и chrome_devtools и общие
-навыки из README шаблона. Ничего не устанавливай без моего согласия.
-Дай список: что есть, чего не хватает и как это поставить.
-</code></pre></div>
-<p>Настроить Codex так же, как Claude (один раз на компьютере):</p>
-<div class="copy-block prompt"><div class="copy-bar"><span>Готовый промпт</span><button type="button" class="copy-button" disabled aria-label="Копировать промпт: Подготовить компьютер один раз">Копировать промпт</button></div><pre><code class="language-text">Склонируй мой приватный репозиторий https://github.com/maksymm-ops/max-agent-skills
-(через gh) и выполни по шагам инструкцию из файла CODEX-SETUP.md.
-Перед каждым изменением делай резервные копии, ничего не удаляй, секреты
-в чат не выводи. Отвечай мне по-русски, в конце дай короткий отчёт.
-</code></pre></div>
-<p>Когда навыки или правила поменялись (Claude обновляет репозиторий сам):</p>
-<div class="copy-block prompt"><div class="copy-bar"><span>Готовый промпт</span><button type="button" class="copy-button" disabled aria-label="Копировать промпт: Подготовить компьютер один раз">Копировать промпт</button></div><pre><code class="language-text">Обнови навыки и общие правила из max-agent-skills по CODEX-SETUP.md:
-забери свежую версию, покажи, что изменилось, и установи изменения.
-Сделай резервные копии. Отвечай по-русски, коротко.
-</code></pre></div>
 </div></details><details class="topic" id="topic-fb0e02a7a1" data-group="start" data-prompt="false"><summary><h3 class="topic-title">Когда использовать этот шаблон</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body"><ul>
 <li>Ты делаешь новый сайт по макету Figma или скриншоту.</li>
 <li>Вам нужны анимации и единые стили для всех страниц.</li>
@@ -615,51 +531,6 @@ Figma. На этом шаге агент изучает оформление и 
 агент ведёт на английском, с тобой общается по-русски. Правило отступов
 шаблона — шаг в 8 пикселей: например, 23 пикселя он округлит до 24. Поэтому
 некоторые размеры могут слегка отличаться от исходного макета.</p>
-</div></details><details class="topic" id="topic-af64911bc9" data-group="start" data-prompt="true"><summary><h3 class="topic-title">Что шаблон делает по умолчанию</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body"><p>Если не сказать иначе, агент сделает так:</p>
-<ul>
-<li><strong>Анимации:</strong> плавная прокрутка на компьютере, заголовки и блоки
-«выезжают» снизу, у кнопок поднимается заливка, текст прокручивается,
-стрелка уезжает. На телефоне прокрутка обычная — это не ошибка. Если в
-системе включено «уменьшение движения», анимаций нет. Хочешь спокойнее —
-напиши в промпте.</li>
-<li><strong>Заголовки:</strong> все заголовки одного уровня на сайте одинаковые. Если в
-макете два разных размера H2, шаблон сведёт их к одному или уточнит,
-не другой ли это уровень.</li>
-<li><strong>Размеры текста</strong> меняются ступенями (компьютер, планшет, телефон),
-а не плавно. Основной текст не мельче 16 px; если в макете мельче, это
-записывается как согласованное отклонение.</li>
-<li><strong>Скриншот вместо Figma:</strong> агент сам меряет масштаб, цвета и строки
-текста (<code>npm run measure-ref</code>). Называй файлы с шириной экрана:
-<code>desktop-1440.png</code>, <code>mobile-390.png</code>. Скриншот с ретина-экрана в 2 раза
-больше — скрипт это учтёт и предупредит, если ширины не сходятся.
-Недостающие фото агент сделает только «похожими», оригиналы лучше прислать.</li>
-<li><strong>Проверка:</strong> агент сравнивает с макетом по цифрам на ширине макета и на
-1440, 768, 390 и 320 px. Для снимков открывает страницу с <code>?static</code> —
-так анимации не прячут текст.</li>
-<li><strong>Кнопки:</strong> форма меняется настройками (круглые, без стрелки, акцентные),
-без переписывания кода.</li>
-</ul>
-<h4>Дополнение к промпту 1: подготовить сайт к CMS</h4>
-<p><strong>Когда использовать:</strong> Клиент позже будет сам менять тексты, картинки или
-новости. Добавь этот запрос к стартовому промпту; для разового лендинга
-без редактирования контента он может не понадобиться.</p>
-<p><strong>Что приложить:</strong> Какие сведения будет менять клиент и выбранную CMS,
-если она уже известна. Если сайт существует, укажи его папку.</p>
-<div class="copy-block prompt"><div class="copy-bar"><span>Готовый промпт</span><button type="button" class="copy-button" disabled aria-label="Копировать промпт: Что шаблон делает по умолчанию">Копировать промпт</button></div><pre><code class="language-text">Подготовь структуру сайта к будущему подключению CMS (панели редактирования
-контента): клиент будет менять [тексты, фото, новости или другие данные].
-Сохрани существующие Next.js и App Router (организацию страниц сайта).
-Отдели содержимое страниц от оформления и используй общие компоненты.
-Для существующего сайта меняй только нужную область, сохраняя текущий вид.
-Саму CMS пока не подключай; не создавай сложную систему ради неизвестных задач.
-Используй Next Image (элемент для загрузки изображений) там, где он подходит
-проекту и будущему размещению. Предусмотри отдельные названия и описания страниц
-для поиска, понятные адреса и структуру заголовков.
-Запиши, что подготовлено, где лежит контент и что потребуется при подключении CMS.
-Проверь затронутые страницы и сборку. Пока ничего не публикуй.
-</code></pre></div>
-<p><strong>Что должно получиться:</strong> Удобная основа для будущего подключения контента.
-Рабочей панели клиента ещё нет. Next Image помогает с загрузкой, но не
-выбирает художественную обрезку фотографии вместо дизайнера.</p>
 </div></details><details class="topic" id="topic-1b8d7e3f9c" data-group="start" data-prompt="true"><summary><h3 class="topic-title"><span class="prompt-number">Промпт 1а. </span><span class="prompt-name">Проверить материалы до сборки</span></h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body"><p><strong>Когда использовать:</strong> Материалы уже собраны, но ты ещё не знаешь, достаточно ли их для сайта.</p>
 <p><strong>Что приложить:</strong> Папку с материалами, бриф и ссылку на утверждённый макет.</p>
 <div class="copy-block prompt"><div class="copy-bar"><span>Готовый промпт</span><button type="button" class="copy-button" disabled aria-label="Копировать промпт: Промпт 1а. Проверить материалы до сборки">Копировать промпт</button></div><pre><code class="language-text">Изучи материалы проекта: [папка] и утверждённый макет: [ссылка].
@@ -685,6 +556,93 @@ Figma. На этом шаге агент изучает оформление и 
 Проверь затронутые страницы и обнови связанные примеры Storybook, если они есть.
 </code></pre></div>
 <p><strong>Что должно получиться:</strong> Подключённые материалы и список оставшихся замен. Генерация картинок требует отдельного инструмента.</p>
+</div></details></section><section class="topic-group" id="group-tools"><h2>Claude и Codex</h2><details class="topic" id="topic-93187eb564" data-group="tools" data-prompt="false"><summary><h3 class="topic-title">Claude и Codex: что общее и что отличается</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body"><p>Один и тот же проект можно вести и в Claude Code, и в Codex: например,
+дома в одном, на работе в другом. Папка, правила, навыки шаблона и
+промпты общие.</p>
+<table>
+<thead>
+<tr>
+<th>Что</th>
+<th>Claude Code</th>
+<th>Codex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Правила проекта</td>
+<td>Читает <code>CLAUDE.md</code>, который подключает <code>AGENTS.md</code></td>
+<td>Читает <code>AGENTS.md</code> сам</td>
+</tr>
+<tr>
+<td>4 навыка шаблона</td>
+<td>Находит сам в <code>.claude/skills/</code></td>
+<td>Читает их по пути, как сказано в <code>AGENTS.md</code></td>
+</tr>
+<tr>
+<td>Общие навыки (<code>better-*</code>, <code>gsap-*</code> и другие)</td>
+<td>Твои глобальные навыки Claude</td>
+<td>Твои глобальные навыки Codex</td>
+</tr>
+<tr>
+<td>Figma</td>
+<td>figma-console + Figma Desktop с плагином Desktop Bridge; запасные — figma-bridge, затем официальный Figma MCP</td>
+<td>То же, если они подключены в Codex</td>
+</tr>
+<tr>
+<td>Проверка в браузере</td>
+<td>chrome_devtools</td>
+<td>chrome_devtools или встроенный браузер Codex</td>
+</tr>
+<tr>
+<td>Независимое ревью после крупных этапов</td>
+<td>Запускается сам: агент-проверяющий</td>
+<td>Запускается сам: проверяющий внутри Codex, если поддерживается, иначе отдельный проход проверки</td>
+</tr>
+<tr>
+<td>Генерация картинок</td>
+<td>fal по твоим правилам</td>
+<td>fal, если подключён; иначе агент попросит оригиналы</td>
+</tr>
+</tbody>
+</table>
+<p>Если чего-то из таблицы на компьютере нет, агент продолжит по правилам
+проекта и скажет, что было недоступно. История чата между Claude и Codex
+не переносится: перед сменой сохраняй состояние промптом 2а.</p>
+</div></details><details class="topic" id="topic-5d0ab69bba" data-group="tools" data-prompt="true"><summary><h3 class="topic-title">Подготовить компьютер один раз</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body"><p>Это нужно один раз на каждом компьютере, а не для каждого сайта.</p>
+<ol>
+<li>Node.js 22.14 или новее и npm.</li>
+<li>Git и GitHub CLI (<code>gh</code>, программа для работы с GitHub из командной
+строки) с входом в твой аккаунт — тогда агент сможет создавать
+репозитории клиентов.</li>
+<li>Figma Desktop и подключение figma-console с плагином Desktop Bridge.</li>
+<li>Подключение chrome_devtools (браузер, которым управляет агент).</li>
+<li>Общие навыки: <code>better-layout</code>, <code>better-typography</code>, <code>better-colors</code>,
+<code>better-writing</code>, <code>better-ui</code>, <code>accessibility</code>, <code>gsap-react</code>, <code>gsap-core</code>,
+<code>gsap-scrolltrigger</code>, <code>gsap-plugins</code>, <code>gsap-utils</code>, <code>variant</code>, <code>break</code>,
+<code>explain-interface</code>, <code>interface-review</code>.</li>
+</ol>
+<p>Навыки и общие правила одинаковые на всех компьютерах. Их источник —
+приватный репозиторий <a href="https://github.com/maksymm-ops/max-agent-skills">max-agent-skills</a>:
+копия твоей настройки Claude. Codex ставит из него то же самое по
+инструкции <code>CODEX-SETUP.md</code>. Полный комплект (шаблон, навыки, гайд) для
+переноса лежит в папке <code>F:\.Projects\Site Starter</code>: <code>Claude/</code> и <code>Codex/</code>.</p>
+<p>Проверку можно поручить агенту:</p>
+<div class="copy-block prompt"><div class="copy-bar"><span>Готовый промпт</span><button type="button" class="copy-button" disabled aria-label="Копировать промпт: Подготовить компьютер один раз">Копировать промпт</button></div><pre><code class="language-text">Проверь, готов ли этот компьютер к работе со стартером сайтов: Node.js,
+npm, Git, вход в gh, подключения figma-console и chrome_devtools и общие
+навыки из README шаблона. Ничего не устанавливай без моего согласия.
+Дай список: что есть, чего не хватает и как это поставить.
+</code></pre></div>
+<p>Настроить Codex так же, как Claude (один раз на компьютере):</p>
+<div class="copy-block prompt"><div class="copy-bar"><span>Готовый промпт</span><button type="button" class="copy-button" disabled aria-label="Копировать промпт: Подготовить компьютер один раз">Копировать промпт</button></div><pre><code class="language-text">Склонируй мой приватный репозиторий https://github.com/maksymm-ops/max-agent-skills
+(через gh) и выполни по шагам инструкцию из файла CODEX-SETUP.md.
+Перед каждым изменением делай резервные копии, ничего не удаляй, секреты
+в чат не выводи. Отвечай мне по-русски, в конце дай короткий отчёт.
+</code></pre></div>
+<p>Когда навыки или правила поменялись (Claude обновляет репозиторий сам):</p>
+<div class="copy-block prompt"><div class="copy-bar"><span>Готовый промпт</span><button type="button" class="copy-button" disabled aria-label="Копировать промпт: Подготовить компьютер один раз">Копировать промпт</button></div><pre><code class="language-text">Обнови навыки и общие правила из max-agent-skills по CODEX-SETUP.md:
+забери свежую версию, покажи, что изменилось, и установи изменения.
+Сделай резервные копии. Отвечай по-русски, коротко.
+</code></pre></div>
 </div></details></section><section class="topic-group" id="group-context"><h2>Контекст и перенос</h2><details class="topic" id="topic-c6c6f1ddaa" data-group="context" data-prompt="false"><summary><h3 class="topic-title">Куда попадает информация</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body"><table>
 <thead>
 <tr>
@@ -1691,6 +1649,51 @@ site-audit/. Начни с ошибок, мешающих пользоватьс
 <code>interface-review</code> запускаются только по твоей прямой просьбе.</p>
 <p>Навыки <strong>не подключают автоматически</strong> твой аккаунт Figma, генератор
 изображений или хостинг. Для этих действий нужен отдельный доступ.</p>
+</div></details><details class="topic" id="topic-af64911bc9" data-group="reference" data-prompt="true"><summary><h3 class="topic-title">Что шаблон делает по умолчанию</h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body"><p>Если не сказать иначе, агент сделает так:</p>
+<ul>
+<li><strong>Анимации:</strong> плавная прокрутка на компьютере, заголовки и блоки
+«выезжают» снизу, у кнопок поднимается заливка, текст прокручивается,
+стрелка уезжает. На телефоне прокрутка обычная — это не ошибка. Если в
+системе включено «уменьшение движения», анимаций нет. Хочешь спокойнее —
+напиши в промпте.</li>
+<li><strong>Заголовки:</strong> все заголовки одного уровня на сайте одинаковые. Если в
+макете два разных размера H2, шаблон сведёт их к одному или уточнит,
+не другой ли это уровень.</li>
+<li><strong>Размеры текста</strong> меняются ступенями (компьютер, планшет, телефон),
+а не плавно. Основной текст не мельче 16 px; если в макете мельче, это
+записывается как согласованное отклонение.</li>
+<li><strong>Скриншот вместо Figma:</strong> агент сам меряет масштаб, цвета и строки
+текста (<code>npm run measure-ref</code>). Называй файлы с шириной экрана:
+<code>desktop-1440.png</code>, <code>mobile-390.png</code>. Скриншот с ретина-экрана в 2 раза
+больше — скрипт это учтёт и предупредит, если ширины не сходятся.
+Недостающие фото агент сделает только «похожими», оригиналы лучше прислать.</li>
+<li><strong>Проверка:</strong> агент сравнивает с макетом по цифрам на ширине макета и на
+1440, 768, 390 и 320 px. Для снимков открывает страницу с <code>?static</code> —
+так анимации не прячут текст.</li>
+<li><strong>Кнопки:</strong> форма меняется настройками (круглые, без стрелки, акцентные),
+без переписывания кода.</li>
+</ul>
+<h4>Дополнение к промпту 1: подготовить сайт к CMS</h4>
+<p><strong>Когда использовать:</strong> Клиент позже будет сам менять тексты, картинки или
+новости. Добавь этот запрос к стартовому промпту; для разового лендинга
+без редактирования контента он может не понадобиться.</p>
+<p><strong>Что приложить:</strong> Какие сведения будет менять клиент и выбранную CMS,
+если она уже известна. Если сайт существует, укажи его папку.</p>
+<div class="copy-block prompt"><div class="copy-bar"><span>Готовый промпт</span><button type="button" class="copy-button" disabled aria-label="Копировать промпт: Что шаблон делает по умолчанию">Копировать промпт</button></div><pre><code class="language-text">Подготовь структуру сайта к будущему подключению CMS (панели редактирования
+контента): клиент будет менять [тексты, фото, новости или другие данные].
+Сохрани существующие Next.js и App Router (организацию страниц сайта).
+Отдели содержимое страниц от оформления и используй общие компоненты.
+Для существующего сайта меняй только нужную область, сохраняя текущий вид.
+Саму CMS пока не подключай; не создавай сложную систему ради неизвестных задач.
+Используй Next Image (элемент для загрузки изображений) там, где он подходит
+проекту и будущему размещению. Предусмотри отдельные названия и описания страниц
+для поиска, понятные адреса и структуру заголовков.
+Запиши, что подготовлено, где лежит контент и что потребуется при подключении CMS.
+Проверь затронутые страницы и сборку. Пока ничего не публикуй.
+</code></pre></div>
+<p><strong>Что должно получиться:</strong> Удобная основа для будущего подключения контента.
+Рабочей панели клиента ещё нет. Next Image помогает с загрузкой, но не
+выбирает художественную обрезку фотографии вместо дизайнера.</p>
 </div></details><details class="topic" id="topic-77af4db057" data-group="reference" data-prompt="true"><summary><h3 class="topic-title"><span class="prompt-number">Промпт 11. </span><span class="prompt-name">Сайт или Storybook не запускается</span></h3><span class="chevron" aria-hidden="true"></span></summary><div class="topic-body"><p><strong>Когда использовать:</strong> Получил ошибку запуска, пустую страницу или открыл старую версию.</p>
 <p><strong>Что приложить:</strong> Текст ошибки или скриншот и путь к папке проекта.</p>
 <div class="copy-block prompt"><div class="copy-bar"><span>Готовый промпт</span><button type="button" class="copy-button" disabled aria-label="Копировать промпт: Промпт 11. Сайт или Storybook не запускается">Копировать промпт</button></div><pre><code class="language-text">Разберись, почему [сайт или Storybook] не запускается в [путь проекта].
@@ -1813,7 +1816,7 @@ search.addEventListener('input',apply);clear.addEventListener('click',()=>{searc
 function closeNav(){const restoreFocus=sidebar.contains(document.activeElement);sidebar.classList.remove('expanded');mobile.setAttribute('aria-expanded','false');mobile.setAttribute('aria-label','Открыть оглавление');if(restoreFocus&&compactHeader.matches)mobile.focus()}
 mobile.addEventListener('click',()=>{const expanded=sidebar.classList.toggle('expanded');mobile.setAttribute('aria-expanded',String(expanded));mobile.setAttribute('aria-label',expanded?'Закрыть оглавление':'Открыть оглавление')});
 function mark(id){navLinks.forEach(a=>{const on=a.hash==='#'+id;a.classList.toggle('active',on);if(on)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}
-function reveal(hash,scroll=true){let id;try{id=decodeURIComponent(hash.replace(/^#/,''))}catch{return}const target=document.getElementById(id);if(!target)return;if(target.hidden||target.closest('.topic-group')?.hidden)reset();if(target.matches('.topic')){target.open=true;mark(target.id)}closeNav();if(scroll)requestAnimationFrame(()=>{target.scrollIntoView({block:'start'});const focusTarget=target.id==='main'?target:target.matches('.topic')?target.querySelector('summary'):null;focusTarget?.focus({preventScroll:true})});}
+function reveal(hash,scroll=true){let id;try{id=decodeURIComponent(hash.replace(/^#/,''))}catch{return}const target=document.getElementById(id)||document.querySelector('[data-alias~="'+id+'"]');if(!target)return;if(target.hidden||target.closest('.topic-group')?.hidden)reset();if(target.matches('.topic')){target.open=true;mark(target.id)}closeNav();if(scroll)requestAnimationFrame(()=>{target.scrollIntoView({block:'start'});const focusTarget=target.id==='main'?target:target.matches('.topic')?target.querySelector('summary'):null;focusTarget?.focus({preventScroll:true})});}
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',event=>{event.preventDefault();const hash=a.getAttribute('href');try{history.pushState(null,'',hash)}catch{location.hash=hash}reveal(hash)}));window.addEventListener('hashchange',()=>reveal(location.hash));window.addEventListener('popstate',()=>reveal(location.hash));if(location.hash)reveal(location.hash);
 const observer=new IntersectionObserver(entries=>{const first=entries.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top)[0];if(first)mark(first.target.id)},{rootMargin:'-15% 0px -60% 0px'});cards.forEach(c=>observer.observe(c));
 function toast(text){const box=document.querySelector('#toast');clearTimeout(toastTimer);box.textContent=text;box.hidden=false;toastTimer=setTimeout(()=>box.hidden=true,4000)}
